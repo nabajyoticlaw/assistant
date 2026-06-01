@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { createClient } from '@supabase/supabase-js';
 
 // Initialize Supabase (Use your actual credentials from Vercel env)
-const supabase = createClient('YOUR_SUPABASE_URL', 'YOUR_SUPABASE_ANON_KEY');
+const supabase = createClient('https://niotxmtaobihmvomgnfz.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5pb3R4bXRhb2JpaG12b21nbmZ6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAzMzE3NjIsImV4cCI6MjA5NTkwNzc2Mn0.dSXE-HE64h7Z-IWHzcIhSqe272zUD9-WjE9bwqxv6uc');
 
 export default function LandingPage() {
   const [email, setEmail] = useState("");

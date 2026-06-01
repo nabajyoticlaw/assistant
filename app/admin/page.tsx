@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { createClient } from '@supabase/supabase-js';
 
-const supabase = createClient('YOUR_SUPABASE_URL', 'YOUR_SUPABASE_SERVICE_ROLE_KEY'); // Use Service Role for Admin
+const supabase = createClient('https://niotxmtaobihmvomgnfz.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5pb3R4bXRhb2JpaG12b21nbmZ6Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4MDMzMTc2MiwiZXhwIjoyMDk1OTA3NzYyfQ.XS9EZvOK9keFW8oDxmBO-2xXaoBHK1eTz7JUX4VASnk'); // Use Service Role for Admin
 
 export default function AdminPanel() {
   const [subs, setSubs] = useState<any[]>([]);
