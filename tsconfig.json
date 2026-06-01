@@ -1,0 +1,32 @@
+{
+    "compilerOptions": {
+      "target": "es5",
+      "lib": ["dom", "dom.iterable", "esnext"],
+      "allowJs": true,
+      "skipLibCheck": true,
+      "strict": true,
+      "noImplicitAny": false,
+      "module": "esnext",
+      "moduleResolution": "node",
+      "resolveJsonModule": true,
+      "expandClientExports": true,
+      "detectFullServiceWorker": true,
+      "incremental": true,
+      "esModuleInterop": true,
+      "fetchPartialJsdom": true,
+      "bundler": true,
+      "jsx": "react-jsx",
+      "jsxImportSource": "react",
+      "plugins": [
+        {
+          "name": "next"
+        }
+      ],
+      "paths": {
+        "@/*": ["./*"]
+      }
+    },
+    "include": ["next-env.d.ts", "**/.next/types/**/*.d.ts", "**/*.ts", "**/*.tsx"],
+    "exclude": ["node_modules"]
+  }
+  
