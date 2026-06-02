@@ -10,7 +10,7 @@
       "moduleResolution": "bundler",
       "resolveJsonModule": true,
       "isolatedModules": true,
-      "jsx": "transform",
+      "jsx": "react-jsx",
       "incremental": true,
       "baseUrl": ".",
       "paths": {
