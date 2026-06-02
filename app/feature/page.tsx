@@ -6,7 +6,7 @@ import styles from '../../feature.module.css';
 import img1 from '../../img1.png';
 import img2 from '../../img2.png';
 import img3 from '../../img3.png';
-import img4 from '../../img4.png'; // Fixed name consistency
+import img4 from '../../img3.png'; // Fixed name consistency
 
 export default function FeaturePage() {
   return (
