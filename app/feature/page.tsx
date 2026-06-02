@@ -20,13 +20,13 @@ export default function FeaturePage() {
       </nav>
 
       {/* Hero Section */}
-      <section className={styles.heroSection}>
+      <header className={styles.heroSection}>
         <h1 className={styles.heroTitle}>Capabilities</h1>
         <p className={styles.heroSubtitle}>
           Experience the next evolution of digital companionship. 
           More than an AI—a living, breathing digital presence.
         </p>
-      </section>
+      </header>
 
       {/* Feature List */}
       <div className={styles.featureList}>
