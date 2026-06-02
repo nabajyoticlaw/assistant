@@ -57,8 +57,11 @@ export default function Page() {
       {/* Main Hero Content */}
       <section className={styles.heroSection}>
         <h1 className={styles.heroTitle}>
-          Intelligence<br />Evolved.
+          palkin.ai
         </h1>
+        <p1 className={styles.heroTitle}>
+          Intelligence<br />Evolved.
+        </p1>
         <p className={styles.heroSubtitle}>
           The ultimate AI assistant designed to augment your human potential through seamless automation.
         </p>
