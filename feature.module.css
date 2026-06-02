@@ -12,18 +12,18 @@
     padding: 0;
     margin: 0;
     overflow-x: hidden;
-  }
-  
-  /* Hero Section */
-  .heroSection {
+}
+
+/* Hero Section */
+.heroSection {
     text-align: center;
     padding: 6rem 1rem 4rem 1rem;
     width: 100%;
     max-width: 800px;
     animation: fadeIn 1s ease-out;
-  }
-  
-  .heroTitle {
+}
+
+.heroTitle {
     font-size: clamp(2.5rem, 8vw, 4.5rem);
     font-weight: 800;
     letter-spacing: -0.05em;
@@ -31,70 +31,74 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-bottom: 1rem;
-  }
-  
-  .heroSubtitle {
+}
+
+.heroSubtitle {
     color: #94a3b8;
     font-size: 1.25rem;
     margin-bottom: 2rem;
-  }
-  
-  /* Feature List Layout */
-  .featureList {
+}
+
+/* Feature List Layout */
+.featureList {
     width: 100%;
     max-width: 1100px;
     display: flex;
     flex-direction: column;
     gap: 8rem; 
     padding: 2rem 0;
-  }
-  
-  .featureRow {
+}
+
+.featureRow {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     width: 100%;
-    padding: 0 10%;
+    /* Use gap to prevent overlap instead of just padding */
+    gap: 4rem; 
+    padding: 0 2rem;
     box-sizing: border-box;
-  }
-  
-  .reverse {
+}
+
+.reverse {
     flex-direction: row-reverse;
-  }
-  
-  /* Text Column */
-  .textContainer {
+}
+
+/* Text Column */
+.textContainer {
     flex: 1;
-    max-width: 500px;
+    /* min-width: 0 is a flexbox trick to prevent content from forcing width */
+    min-width: 0; 
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-  }
-  
-  .featureHeading {
-    font-size: clamp(2rem, 4vw, 2.8rem);
+}
+
+.featureHeading {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
     font-weight: 700;
     line-height: 1.1;
     background: linear-gradient(to right, #ffffff, #cbd5e1);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-  }
-  
-  .featureDescription {
+}
+
+.featureDescription {
     font-size: 1.1rem;
     line-height: 1.6;
     color: #94a3b8;
-  }
-  
-  /* Image/Card Column */
-  .imageContainer {
+}
+
+/* Image/Card Column */
+.imageContainer {
     flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-  
-  .imageCard {
+    min-width: 0;
+}
+
+.imageCard {
     background: rgba(255, 255, 255, 0.03);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
@@ -106,9 +110,9 @@
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
     position: relative;
     overflow: hidden;
-  }
-  
-  .imageLabel {
+}
+
+.imageLabel {
     position: absolute;
     top: 1rem;
     left: 1.5rem;
@@ -118,25 +122,25 @@
     color: #6366f1;
     font-weight: 700;
     z-index: 10;
-  }
-  
-  .featureImage {
+}
+
+.featureImage {
     width: 100%;
     height: auto;
     aspect-ratio: 16/9;
     object-fit: cover;
     border-radius: 12px;
     display: block;
-  }
-  
-  /* Footer */
-  .footer {
+}
+
+/* Footer */
+.footer {
     padding: 6rem 1rem;
     display: flex;
     justify-content: center;
-  }
-  
-  .buttonPrimary {
+}
+
+.buttonPrimary {
     box-sizing: border-box;
     background: linear-gradient(135deg, #6366f1 0%, #a855f9 100%);
     color: white;
@@ -148,33 +152,37 @@
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
-  }
-  
-  .buttonPrimary:hover {
+}
+
+.buttonPrimary:hover {
     transform: translateY(-4px);
     filter: brightness(1.1);
-  }
-  
-  /* Animations */
-  @keyframes fadeIn {
+}
+
+/* Animations */
+@keyframes fadeIn {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
-  }
-  
-  /* Responsive Adjustments */
-  @media (max-width: 768px) {
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
     .featureRow, .reverse {
-      flex-direction: column;
-      gap: 3rem;
-      padding: 0 1.5rem;
+        flex-direction: column;
+        gap: 3rem;
+        padding: 0 1.5rem;
     }
     
     .featureList {
       gap: 5rem;
     }
+
+    .textContainer, .imageContainer {
+        width: 100%;
+        max-width: 100%;
+    }
   
     .imageCard {
       max-width: 100%;
     }
-  }
-  
+}
