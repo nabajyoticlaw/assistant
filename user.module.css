@@ -1,15 +1,162 @@
-/* Admin.module.css */
-.dashboardContainer {
-    min-height: 100vh;
-    background-color: #ff0000;
-    padding: 40px;
-  }
-  
-  .adminTitle {
-    font-size: 2.5rem;
-    font-weight: 700;
-    background: linear-gradient(to bottom, #ffffff, #71717a);
-    -webkit-background-clip: text;
-    -webkit-text-clip: text;
-  }
-  
+/* user.module.css */
+
+/* Base Layout */
+.pageWrapper {
+  min-height: 100vh;
+  background-color: #000000;
+  color: #E0E0E0;
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+  padding: 2.5rem;
+}
+
+/* Card / Container Style (The "Group Box" equivalent) */
+.card {
+  background-color: rgba(20, 20, 20, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Form Elements (The "QLineEdit/QTextEdit" equivalent) */
+.input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background-color: rgba(20, 20, 20, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: #E0E0E0;
+  font-size: 14px;
+  outline: none;
+  transition: border 0.2s ease, background-color 0.2s ease;
+}
+
+.input:focus {
+  border: 1px solid rgba(187, 134, 252, 0.6);
+  background-color: rgba(25, 25, 25, 0.8);
+}
+
+.select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background-color: rgba(30, 30, 30, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: #E0E0E0;
+  outline: none;
+  appearance: none; /* Removes default browser styling */
+}
+
+/* Buttons (The "QPushButton" equivalent) */
+.button {
+  background-color: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  padding: 0.5rem 1.5rem;
+  color: #CCCCCC;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.button:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #FFFFFF;
+}
+
+.buttonPrimary {
+  background: linear-gradient(90deg, rgba(187, 134, 252, 0.8), rgba(37, 99, 235, 0.8));
+  color: white;
+  border: none;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  transition: opacity 0.2s;
+}
+
+.buttonPrimary:hover {
+  opacity: 0.9;
+}
+
+.buttonPrimary:disabled {
+  background: #333;
+  color: #777;
+  cursor: not-allowed;
+}
+
+.buttonSuccess {
+  background-color: #16a34a;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+}
+
+/* Admin Table Styles */
+.tableContainer {
+  overflow-x: auto;
+  background-color: rgba(20, 20, 20, 0.4);
+  border-radius: 12px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.table th {
+  color: #888888;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 1px;
+  padding: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.table td {
+  padding: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.table tr:hover {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+/* Pricing Cards */
+.pricingGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.pricingCard {
+  background-color: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 1.5rem;
+  border-radius: 12px;
+}
+
+/* Badges */
+.badge {
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.badgePro { background: rgba(59, 130, 246, 0.2); color: #60a5fa; }
+.badgePremium { background: rgba(168, 43, 224, 0.2); color: #c084fc; }
+
+/* Modal */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
