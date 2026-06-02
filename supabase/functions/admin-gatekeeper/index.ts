@@ -1,30 +1,39 @@
-// Use the npm: prefix instead of a URL. This is much more stable for deployment.
+// supabase/functions/admin-gatekeeper/index.ts
+
+// 1. Use the stable npm import
 import { createClient } from 'npm:@supabase/supabase-js@2'
 
-// Use Deno.serve directly (no extra imports needed)
 Deno.serve(async (req) => {
   try {
-    // 1. Parse the incoming request
     const { password, action, payload } = await req.json();
 
-    // 2. Get the secret password from Environment Variables
+    // 2. Fetch the secret
     const SECRET_PASSWORD = Deno.env.get("ADMIN_PASSWORD");
+    
+    // DEBUG: This will show up in your Supabase Logs
+    console.log(`Attempting action: ${action}`);
+    console.log(`Password provided: ${password}`);
+    console.log(`Secret from Env: ${SECRET_PASSWORD}`);
 
-    // 3. SECURITY CHECK: Verify the password
-    if (password !== SECRET_PASSWORD) {
+    // 3. SECURITY CHECK
+    // We check if SECRET_PASSWORD exists and if it matches
+    if (!SECRET_PASSWORD || password !== SECRET_PASSWORD) {
+      console.log("❌ AUTHENTICATION FAILED");
       return new Response(
         JSON.stringify({ error: "Invalid Admin Password" }), 
         { status: 401, headers: { "Content-Type": "application/json" } }
       );
     }
 
-    // 4. Initialize the Admin Client (using the Service Role Key)
+    console.log("✅ AUTHENTICATION SUCCESSFUL");
+
+    // 4. Initialize the Admin Client
     const supabaseAdmin = createClient(
       Deno.env.get('SUPABASE_URL') ?? '',
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
     );
 
-    // 5. ROUTING: Handle the different actions
+    // 5. ROUTING
     if (action === 'verify_login') {
       return new Response(JSON.stringify({ success: true }), { status: 200 });
     } 
@@ -69,6 +78,7 @@ Deno.serve(async (req) => {
     }
 
   } catch (err) {
+    console.log(`❌ ERROR: ${err.message}`);
     return new Response(
       JSON.stringify({ error: err.message }), 
       { status: 400, headers: { "Content-Type": "application/json" } }
