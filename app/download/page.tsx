@@ -8,6 +8,7 @@ const DownloadPage: React.FC = () => {
       {/* Navigation Menu */}
       <nav className={styles.navContainer}>
         {/* 2. Replace <a> with <Link> and update the href to match your folder names */}
+        <Link href="/" className={styles.navLink}>Home</Link>
         <Link href="/feature" className={styles.navLink}>Features</Link>
         <Link href="/activation" className={styles.navLink}>Activation</Link>
         <Link href="/download" className={styles.navLink}>Downloads</Link>

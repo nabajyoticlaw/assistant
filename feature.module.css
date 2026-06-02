@@ -31,7 +31,7 @@
     gap: 2.5rem;
     align-items: center;
   }
-
+  
   .navLink {
     color: #e2e8f0;
     text-decoration: none;
@@ -39,18 +39,17 @@
     font-weight: 500;
     transition: color 0.3s;
   }
-
-  .navLink:hover { 
-    color: #38bdf8; 
-  } 
   
-  /* Hero Section */
+  .navLink:hover {
+    color: #38bdf8;
+  }
+  
+  /* --- HERO SECTION --- */
   .heroSection {
     text-align: center;
     padding: 8rem 1rem 4rem 1rem;
     width: 100%;
     max-width: 800px;
-    animation: fadeIn 1s ease-out;
   }
   
   .heroTitle {
@@ -69,37 +68,37 @@
     line-height: 1.6;
   }
   
-  /* Feature List Layout */
+  /* --- FEATURE LIST --- */
   .featureList {
     width: 100%;
     max-width: 1200px;
     display: flex;
     flex-direction: column;
-    gap: 10rem; /* Large gap for vertical scrolling effect */
+    gap: 8rem; /* Spacing between different feature rows */
     padding: 4rem 0;
   }
   
   .featureRow {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     width: 100%;
-    padding: 0 10%;
+    padding: 0 5%; /* Safe padding for the edges */
     box-sizing: border-box;
+    gap: 4rem; /* CRITICAL: This prevents text and image from overlapping */
   }
   
-  /* The magic for alternating sides */
+  /* This reverses the order of children (Text becomes Right, Image becomes Left) */
   .reverse {
     flex-direction: row-reverse;
   }
   
-  /* Text Column */
   .textContainer {
-    flex: 1;
-    max-width: 500px;
+    flex: 1; /* Takes up 50% of the available space */
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+    min-width: 300px; /* Prevents text from becoming too thin */
   }
   
   .featureHeading {
@@ -117,9 +116,8 @@
     color: #94a3b8;
   }
   
-  /* Image/Card Column */
   .imageContainer {
-    flex: 1;
+    flex: 1; /* Takes up 50% of the available space */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -133,9 +131,8 @@
     border-radius: 24px;
     padding: 1rem;
     width: 100%;
-    max-width: 450px;
+    max-width: 500px;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-    position: relative;
     overflow: hidden;
   }
   
@@ -148,51 +145,31 @@
     display: block;
   }
   
-  /* Footer */
+  /* --- FOOTER --- */
   .footer {
     padding: 8rem 1rem 4rem 1rem;
-    display: flex;
-    justify-content: center;
   }
   
-  .buttonPrimary {
-    background: linear-gradient(135deg, #6366f1 0%, #a855f9 100%);
-    color: white;
-    text-decoration: none;
-    padding: 1.25rem 3rem;
-    border-radius: 50px;
-    font-weight: 600;
-    font-size: 1.2rem;
-    transition: all 0.3s ease;
-    box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
-  }
-  
-  .buttonPrimary:hover {
-    transform: translateY(-4px);
-    filter: brightness(1.1);
-  }
-  
-  /* Animations */
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  
-  /* Responsive Adjustments */
-  @media (max-width: 992px) {
-    .featureRow, .reverse {
-      flex-direction: column;
-      gap: 4rem;
-      padding: 0 2rem;
+  /* --- RESPONSIVE --- */
+  @media (max-width: 1024px) {
+    .featureRow {
+      gap: 2rem;
     }
-    
-    .featureList {
-      gap: 6rem;
+  }
+  
+  @media (max-width: 768px) {
+    .featureRow, .reverse {
+      flex-direction: column !important; /* Force stack on mobile */
+      text-align: center;
+      gap: 3rem;
     }
   
     .textContainer {
       max-width: 100%;
-      text-align: center;
+    }
+  
+    .featureList {
+      gap: 4rem;
     }
   }
   

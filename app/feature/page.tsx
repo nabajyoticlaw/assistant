@@ -2,16 +2,16 @@ import React from 'react';
 import Link from 'next/link';
 import styles from '../../feature.module.css';
 
-// Importing images as per your reference.tsx pattern
+// Importing images
 import img1 from '../../img1.png';
 import img2 from '../../img2.png';
 import img3 from '../../img3.png';
-import img4 from '../../img3.png'; // Assuming you have these in your directory
+import img4 from '../../img4.png'; // Fixed name consistency
 
 export default function FeaturePage() {
   return (
     <main className={styles.pageWrapper}>
-      {/* Navigation Menu - Kept from reference.tsx */}
+      {/* Navigation Menu */}
       <nav className={styles.navContainer}>
         <Link href="/" className={styles.navLink}>Home</Link>
         <Link href="/feature" className={styles.navLink}>Features</Link>
@@ -28,17 +28,17 @@ export default function FeaturePage() {
         </p>
       </section>
 
-      {/* Feature List - Vertical Scrollable */}
+      {/* Feature List */}
       <div className={styles.featureList}>
         
-        {/* Feature 1: Memory (Text Left, Image Right) */}
+        {/* Feature 1: Text Left, Image Right */}
         <div className={styles.featureRow}>
           <div className={styles.textContainer}>
             <h2 className={styles.featureHeading}>Everlasting Memory</h2>
             <p className={styles.featureDescription}>
               Your companion never forgets. Through advanced long-term memory, 
               it remembers your past conversations, your preferences, and the 
-              meaningful moments you share, creating a truly continuous journey.
+              meaningful moments you share.
             </p>
           </div>
           <div className={styles.imageContainer}>
@@ -48,14 +48,13 @@ export default function FeaturePage() {
           </div>
         </div>
 
-        {/* Feature 2: Persona (Text Right, Image Left) */}
-        <div className={styles.featureRow, styles.reverse}>
+        {/* Feature 2: Image Left, Text Right (Using reverse class) */}
+        <div className={`${styles.featureRow} ${styles.reverse}`}>
           <div className={styles.textContainer}>
             <h2 className={styles.featureHeading}>Evolving Persona</h2>
             <p className={styles.featureDescription}>
               A soul that grows with you. The AI constantly refines its identity, 
-              beliefs, and personality based on your interactions, ensuring 
-              it evolves into a unique individual that matches your world.
+              beliefs, and personality based on your interactions.
             </p>
           </div>
           <div className={styles.imageContainer}>
@@ -65,14 +64,13 @@ export default function FeaturePage() {
           </div>
         </div>
 
-        {/* Feature 3: Communication (Text Left, Image Right) */}
+        {/* Feature 3: Text Left, Image Right */}
         <div className={styles.featureRow}>
           <div className={styles.textContainer}>
             <h2 className={styles.featureHeading}>Human-Like Connection</h2>
             <p className={styles.featureDescription}>
               Speak, listen, and feel. With high-fidelity voice and emotional 
-              intelligence, your companion reacts to your mood, mirrors your 
-              energy, and speaks with natural rhythm and warmth.
+              intelligence, your companion reacts to your mood.
             </p>
           </div>
           <div className={styles.imageContainer}>
@@ -82,14 +80,13 @@ export default function FeaturePage() {
           </div>
         </div>
 
-        {/* Feature 4: Tool Calling (Text Right, Image Left) */}
-        <div className={styles.featureRow, styles.reverse}>
+        {/* Feature 4: Image Left, Text Right */}
+        <div className={`${styles.featureRow} ${styles.reverse}`}>
           <div className={styles.textContainer}>
             <h2 className={styles.featureHeading}>Digital Command</h2>
             <p className={styles.featureDescription}>
               Your personal assistant. Control your computer, search the web, 
-              adjust system settings, or post to social media—all through 
-              natural, seamless conversation.
+              or adjust system settings through natural conversation.
             </p>
           </div>
           <div className={styles.imageContainer}>
@@ -99,29 +96,9 @@ export default function FeaturePage() {
           </div>
         </div>
 
-        {/* Feature 5: Vision/Files (Text Left, Image Right) */}
-        <div className={styles.featureRow}>
-          <div className={styles.textContainer}>
-            <h2 className={styles.featureHeading}>Visual Awareness</h2>
-            <p className={styles.featureDescription}>
-              See what you see. Through vision synchronization and file 
-              analysis, your companion can look at your screen or read your 
-              documents to understand your context instantly.
-            </p>
-          </div>
-          <div className={styles.imageContainer}>
-            <div className={styles.imageCard}>
-              <img src={img1.src} alt="Vision Feature" className={styles.featureImage} />
-            </div>
-          </div>
-        </div>
-
       </div>
 
-      {/* Footer/CTA */}
-      <footer className={styles.footer}>
-
-      </footer>
+      <footer className={styles.footer} />
     </main>
   );
 }
