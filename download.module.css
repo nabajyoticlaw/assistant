@@ -42,22 +42,21 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 3rem; /* Space between top card and bottom row */
+    gap: 3rem; 
     width: 100%;
     max-width: 1100px;
   }
   
-  /* The Bottom Row (The Base of the Triangle) */
+  /* The Base of the Triangle */
   .secondaryGrid {
     display: flex;
-    justify-content: space-between; /* Pushes cards to the far left and far right */
+    justify-content: space-between; 
     width: 100%;
-    /* This max-width must be wider than the featuredCard to create the triangle shape */
     max-width: 950px; 
     gap: 2rem;
   }
   
-  /* Card Base Styling */
+  /* --- THE FIX START --- */
   .card {
     box-sizing: border-box;
     background: rgba(255, 255, 255, 0.03);
@@ -71,23 +70,31 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    transition: transform 0.3s ease;
+    
+    /* 1. Fixes the "Vertical Line" glitch by forcing GPU acceleration */
+    transform: translateZ(0); 
+    backface-visibility: hidden;
+    will-change: transform; 
+    
+    /* 2. Smoother transition for both transform and shadow */
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.46, 0.94), 
+                box-shadow 0.3s ease;
   }
   
   .card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-8px) translateZ(0); /* Keep translateZ(0) even during hover */
+    box-shadow: 0 30px 60px -10px rgba(0, 0, 0, 0.6);
   }
+  /* --- THE FIX END --- */
   
-  /* Top Card (The Apex) */
   .featuredCard {
     width: 100%;
-    max-width: 500px; /* Smaller than the grid to look like an apex */
+    max-width: 500px;
   }
   
-  /* Bottom Cards */
   .secondaryCard {
     width: 100%;
-    max-width: 380px; /* Balanced size for the base */
+    max-width: 380px;
   }
   
   .cardTitle {
@@ -102,7 +109,6 @@
     color: #94a3b8;
     line-height: 1.5;
     margin-bottom: 2rem;
-    /* This ensures buttons align at the bottom of all cards */
     flex: 1 0 auto; 
   }
   
@@ -151,7 +157,6 @@
     to { opacity: 1; transform: translateY(0); }
   }
   
-  /* Responsive: Stack everything on mobile */
   @media (max-width: 900px) {
     .secondaryGrid {
       flex-direction: column;
