@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  /* The Glass Look */
+  .hud-card {
+    @apply bg-white/[0.02] backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl;
+  }
+
+  /* The Glowing Input */
+  .hud-input {
+    @apply w-full p-3 bg-black/40 border border-white/10 rounded-lg outline-none 
+           focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all text-white;
+  }
+
+  /* The Technical Button */
+  .hud-button {
+    @apply relative overflow-hidden px-6 py-3 rounded-lg font-bold transition-all 
+           active:scale-95 hover:brightness-110;
+  }
+
+  /* The Status Badge */
+  .status-badge {
+    @apply text-[10px] font-mono uppercase tracking-widest px-2 py-1 rounded-sm border;
+  }
+}

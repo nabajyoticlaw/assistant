@@ -1,0 +1,15 @@
+/* Admin.module.css */
+.dashboardContainer {
+    min-height: 100vh;
+    background-color: #050505;
+    padding: 40px;
+  }
+  
+  .adminTitle {
+    font-size: 2.5rem;
+    font-weight: 700;
+    background: linear-gradient(to bottom, #ffffff, #71717a);
+    -webkit-background-clip: text;
+    -webkit-text-clip: text;
+  }
+  
