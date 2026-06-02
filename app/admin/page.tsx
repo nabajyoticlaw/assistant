@@ -1,7 +1,9 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { supabase } from '@/lib/supabase';
+import { supabase } from '../lib/supabase'; // Must have TWO dots (..)
+import { cn } from '../lib/utils';         // Must have TWO dots (..)
+
+
 import { 
   ShieldAlert, 
   Plus, 

@@ -1,11 +1,11 @@
-/** @type {import('next').NextConfig} */
+/** @type {import('next').Config} */
 const nextConfig = {
     typescript: {
-      // !! WARN !!
-      // This allows deployment even if your types are slightly wrong
+      // This is the magic line. It tells Vercel to ignore 
+      // TypeScript errors and finish the build anyway.
       ignoreBuildErrors: true,
     },
-  }
+  };
   
-  module.exports = nextConfig
+  export default nextConfig;
   
