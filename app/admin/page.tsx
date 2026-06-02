@@ -1,18 +1,17 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase'; // Must have TWO dots (..)
-import { cn } from '../lib/utils';         // Must have TWO dots (..)
 
 
 import { 
-  ShieldAlert, 
-  Plus, 
-  Trash2, 
-  Key, 
-  RefreshCw, 
-  Lock, 
+  ShieldAlert,
+  Plus,
+  Trash2,
+  Key,
+  RefreshCw,
   CheckCircle2,
-  AlertCircle 
+  AlertCircle
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
