@@ -2,39 +2,38 @@
 
 import { createClient } from 'npm:@supabase/supabase-js@2'
 
-Deno.serve(async (req) => {
-  // 1. Create a variable to hold our data
-  let body;
+// 1. Define the CORS headers so the browser allows the request
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+}
 
-  // 2. SAFELY attempt to parse the JSON
-  try {
-    // We check if there is actually a body before trying to parse it
-    const text = await req.text();
-    if (!text) {
-      throw new Error("Empty request body");
-    }
-    body = JSON.parse(text);
-  } catch (err) {
-    console.log(`❌ JSON Parse Error: ${err.message}`);
-    return new Response(
-      JSON.stringify({ error: "Invalid or empty request body" }), 
-      { status: 400, headers: { "Content-Type": "application/json" } }
-    );
+Deno.serve(async (req) => {
+  // Handle the OPTIONS request (This is what the browser sends to check CORS)
+  if (req.method === 'OPTIONS') {
+    return new Response('ok', { headers: corsHeaders })
   }
 
-  // Now we can safely extract the data from 'body'
-  const { password, action, payload } = body;
-
   try {
+    // 2. Parse the incoming request
+    let body;
+    const text = await req.text();
+    if (!text) throw new Error("Empty request body");
+    body = JSON.parse(text);
+
+    const { password, action, payload } = body;
+
     // 3. Get the secret password
     const SECRET_PASSWORD = Deno.env.get("ADMIN_PASSWORD");
 
     // 4. SECURITY CHECK
     if (!SECRET_PASSWORD || password !== SECRET_PASSWORD) {
-      console.log(`❌ Auth Failed. Provided: ${password}, Expected: ${SECRET_PASSWORD}`);
       return new Response(
         JSON.stringify({ error: "Invalid Admin Password" }), 
-        { status: 401, headers: { "Content-Type": "application/json" } }
+        { 
+          status: 401, 
+          headers: { ...corsHeaders, "Content-Type": "application/json" } 
+        }
       );
     }
 
@@ -46,7 +45,10 @@ Deno.serve(async (req) => {
 
     // 6. ROUTING
     if (action === 'verify_login') {
-      return new Response(JSON.stringify({ success: true }), { status: 200 });
+      return new Response(JSON.stringify({ success: true }), { 
+        status: 200, 
+        headers: { ...corsHeaders, "Content-Type": "application/json" } 
+      });
     } 
     
     else if (action === 'toggle_status') {
@@ -55,7 +57,10 @@ Deno.serve(async (req) => {
         .update({ status: payload.newStatus })
         .eq('id', payload.id);
       if (error) throw error;
-      return new Response(JSON.stringify({ success: true }), { status: 200 });
+      return new Response(JSON.stringify({ success: true }), { 
+        status: 200, 
+        headers: { ...corsHeaders, "Content-Type": "application/json" } 
+      });
     }
 
     else if (action === 'toggle_tier') {
@@ -64,7 +69,10 @@ Deno.serve(async (req) => {
         .update({ tier: payload.newTier })
         .eq('id', payload.id);
       if (error) throw error;
-      return new Response(JSON.stringify({ success: true }), { status: 200 });
+      return new Response(JSON.stringify({ success: true }), { 
+        status: 200, 
+        headers: { ...corsHeaders, "Content-Type": "application/json" } 
+      });
     }
 
     else if (action === 'delete_sub') {
@@ -73,7 +81,10 @@ Deno.serve(async (req) => {
         .delete()
         .eq('id', payload.id);
       if (error) throw error;
-      return new Response(JSON.stringify({ success: true }), { status: 200 });
+      return new Response(JSON.stringify({ success: true }), { 
+        status: 200, 
+        headers: { ...corsHeaders, "Content-Type": "application/json" } 
+      });
     }
 
     else if (action === 'save_all_pricing') {
@@ -81,18 +92,26 @@ Deno.serve(async (req) => {
         .from('pricing_config')
         .upsert(payload.updates, { onConflict: 'tier, duration' });
       if (error) throw error;
-      return new Response(JSON.stringify({ success: true }), { status: 200 });
+      return new Response(JSON.stringify({ success: true }), { 
+        status: 200, 
+        headers: { ...corsHeaders, "Content-Type": "application/json" } 
+      });
     } 
     
     else {
-      return new Response(JSON.stringify({ error: "Unknown action" }), { status: 400 });
+      return new Response(JSON.stringify({ error: "Unknown action" }), { 
+        status: 400, 
+        headers: { ...corsHeaders, "Content-Type": "application/json" } 
+      });
     }
 
   } catch (err) {
-    console.log(`❌ Execution Error: ${err.message}`);
     return new Response(
       JSON.stringify({ error: err.message }), 
-      { status: 400, headers: { "Content-Type": "application/json" } }
+      { 
+        status: 400, 
+        headers: { ...corsHeaders, "Content-Type": "application/json" } 
+      }
     );
   }
 });
