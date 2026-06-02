@@ -79,7 +79,7 @@ export default function LandingPage() {
       {/* Hero Section */}
       <header className={styles.heroSection}>
         <h1 className={styles.heroTitle}>PALKIN</h1>
-        <p className={styles.heroSubtitle}>Your True Companion.</p>
+        <p className={styles.heroSubtitle}>Your Truely Private Companion.</p>
         <div className={styles.heroButtonContainer}>
           <a href={GOOGLE_DRIVE_LINK} target="_blank" rel="noreferrer" className={styles.buttonSecondary}>
             Download Application

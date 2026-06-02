@@ -4,8 +4,9 @@ import { useState, useEffect } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import { 
   ShieldAlert, Trash2, RefreshCw, CheckCircle2, XCircle, 
-  ArrowUpCircle, ArrowDownCircle, Key, User, DollarSign, Settings, Check, Save
+  ArrowUpCircle, User, DollarSign, Settings, Save
 } from 'lucide-react';
+import styles from '../../admin.module.css'; // Path relative to app/admin/page.tsx
 
 const supabase = createClient(
   'https://niotxmtaobihmvomgnfz.supabase.co', 
@@ -20,9 +21,6 @@ export default function AdminDashboard() {
   const [password, setPassword] = useState('');
   const [isUpdating, setIsUpdating] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'users' | 'pricing'>('users');
-
-  // --- NEW: DRAFT STATE ---
-  // This tracks changes locally so they don't "revert" while typing
   const [draftPrices, setDraftPrices] = useState<Record<string, number>>({});
 
   const handleLogin = (e: React.FormEvent) => {
@@ -38,14 +36,13 @@ export default function AdminDashboard() {
     setSubscriptions(subs || []);
     setPricing(prices || []);
     setLoading(false);
-    setDraftPrices({}); // Reset drafts on refresh
+    setDraftPrices({});
   };
 
   useEffect(() => {
     if (isAdmin) fetchData();
   }, [isAdmin]);
 
-  // --- Subscription Actions ---
   const toggleStatus = async (id: string, currentStatus: string) => {
     const newStatus = currentStatus === 'active' ? 'revoked' : 'active';
     setIsUpdating(id);
@@ -68,13 +65,10 @@ export default function AdminDashboard() {
     if (error) alert(error.message); else fetchData();
   };
 
-  // --- NEW: BULK SAVE LOGIC ---
   const handleSaveAll = async () => {
     if (Object.keys(draftPrices).length === 0) return;
-
     setIsUpdating('pricing');
     
-    // Convert the draft object into an array of database-ready rows
     const updates = Object.entries(draftPrices).map(([id, newPrice]) => {
       const originalRow = pricing.find((p) => p.id === id);
       return {
@@ -84,7 +78,6 @@ export default function AdminDashboard() {
       };
     });
 
-    // Perform a single bulk upsert
     const { error } = await supabase
       .from('pricing_config')
       .upsert(updates, { onConflict: 'tier, duration' });
@@ -92,63 +85,108 @@ export default function AdminDashboard() {
     if (error) {
       alert("Save failed: " + error.message);
     } else {
-      setDraftPrices({}); // Clear drafts after successful save
-      fetchData(); // Refresh to sync with DB
+      setDraftPrices({});
+      fetchData();
     }
     setIsUpdating(null);
   };
 
   if (!isAdmin) {
     return (
-      <div className="min-h-screen bg-black text-white flex items-center justify-center p-4">
-        <div className="max-w-md w-full bg-gray-900 p-8 rounded-2xl border border-gray-800 shadow-2xl">
-          <div className="flex justify-center mb-6"><ShieldAlert className="text-blue-500 w-12 h-12" /></div >
-          <h1 className="text-2xl font-bold text-center mb-2">Admin Control Panel</h1>
-          <form onSubmit={handleLogin} className="space-y-4">
-            <input type="password" className="w-full p-3 bg-black border border-gray-700 rounded-lg outline-none" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-            <button className="w-full bg-blue-600 p-3 rounded-lg font-bold">Login</button>
-          </form>
+      <div className={styles.pageWrapper}>
+        <div className={styles.loginWrapper}>
+          <div className={styles.loginCard}>
+            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1rem' }}>
+              <ShieldAlert style={{ color: '#38bdf8', width: '48px', height: '48px' }} />
+            </div>
+            <h1 className={styles.loginTitle}>Admin Control Panel</h1>
+            <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              <input 
+                type="password" 
+                className={styles.loginInput} 
+                placeholder="Password" 
+                value={password} 
+                onChange={(e) => setPassword(e.target.value)} 
+              />
+              <button type="submit" className={styles.loginButton}>Login</button>
+            </form>
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-black text-white p-4 md:p-10 font-sans">
-      <div className="max-w-7xl mx-auto">
+    <div className={styles.pageWrapper}>
+      <div className={styles.dashboardContainer}>
         
-        <div className="flex justify-between items-center mb-10">
-          <h1 className="text-3xl font-bold flex items-center gap-3">
-            {activeTab === 'users' ? <User className="text-blue-500" /> : <DollarSign className="text-green-500" />} 
+        <div className={styles.header}>
+          <h1 className={styles.title}>
+            {activeTab === 'users' ? <User color="#38bdf8" /> : <DollarSign color="#22c55e" />} 
             {activeTab === 'users' ? 'License Management' : 'Pricing Control'}
           </h1>
-          <div className="flex gap-4">
-            <button onClick={() => setActiveTab('users')} className={`px-4 py-2 rounded-lg ${activeTab === 'users' ? 'bg-blue-600' : 'bg-gray-800'}`}>Users</button>
-            <button onClick={() => setActiveTab('pricing')} className={`px-4 py-2 rounded-lg ${activeTab === 'pricing' ? 'bg-green-600' : 'bg-gray-800'}`}>Pricing</button>
-            <button onClick={fetchData} className="p-2 bg-gray-900 rounded-lg border border-gray-800"><RefreshCw className={loading ? "animate-spin" : ""} size={20} /></button>
+          <div className={styles.tabGroup}>
+            <button 
+              onClick={() => setActiveTab('users')} 
+              className={`${styles.tabButton} ${activeTab === 'users' ? styles.tabButtonActive : ''}`}
+            >
+              Users
+            </button>
+            <button 
+              onClick={() => setActiveTab('pricing')} 
+              className={`${styles.tabButton} ${activeTab === 'pricing' ? styles.tabButtonActive : ''}`}
+              style={{ '--active-color': '#22c55e' } as any} // Custom color logic if needed
+            >
+              Pricing
+            </button>
+            <button onClick={fetchData} className={styles.refreshButton}>
+              <RefreshCw className={loading ? "animate-spin" : ""} size={20} />
+            </button>
           </div>
         </div>
 
         {/* TAB 1: USER MANAGEMENT */}
         {activeTab === 'users' && (
-          <div className="bg-gray-900 rounded-2xl border border-gray-800 overflow-hidden">
-            <div className="overflow-x-auto">
-              <table className="w-full text-left border-collapse">
-                <thead className="text-gray-500 text-xs uppercase tracking-widest border-b border-gray-800">
-                  <tr><th className="p-4">User Email</th><th className="p-4">Key</th><th className="p-4">Tier</th><th className="p-4">Status</th><th className="p-4 text-right">Actions</th></tr>
+          <div className={styles.tableCard}>
+            <div className={styles.tableWrapper}>
+              <table className={styles.table}>
+                <thead>
+                  <tr>
+                    <th className={styles.tableTh}>User Email</th>
+                    <th className={styles.tableTh}>Key</th>
+                    <th className={styles.tableTh}>Tier</th>
+                    <th className={styles.tableTh}>Status</th>
+                    <th className={styles.tableTh} style={{ textAlign: 'right' }}>Actions</th>
+                  </tr>
                 </thead>
                 <tbody>
                   {subscriptions.map((sub) => (
-                    <tr key={sub.id} className="border-b border-gray-800 hover:bg-gray-800/50">
-                      <td className="p-4">{sub.email}</td>
-                      <td className="p-4 font-mono text-blue-400 text-sm">{sub.license_key}</td>
-                      <td className="p-4"><span className={`text-xs font-bold px-2 py-1 rounded ${sub.tier === 'premium' ? 'bg-purple-500/20 text-purple-400' : 'bg-blue-500/20 text-blue-400'}`}>{sub.tier.toUpperCase()}</span></td>
-                      <td className="p-4">{sub.status === 'active' ? <span className="text-green-400 flex items-center gap-1 text-sm"><CheckCircle2 size={14}/> Active</span> : <span className="text-red-400 flex items-center gap-1 text-sm"><XCircle size={14}/> {sub.status}</span>}</td>
-                      <td className="p-4 text-right">
-                        <div className="flex justify-end gap-2">
-                          <button onClick={() => toggleTier(sub.id, sub.tier)} className="text-gray-400 hover:text-blue-400"><ArrowUpCircle size={18}/></button>
-                          <button onClick={() => toggleStatus(sub.id, sub.status)} className="text-gray-400 hover:text-orange-400"><XCircle size={18}/></button>
-                          <button onClick={() => deleteSubscription(sub.id)} className="text-red-500"><Trash2 size={18}/></button>
+                    <tr key={sub.id} className={styles.rowHover}>
+                      <td className={styles.tableTd}>{sub.email}</td>
+                      <td className={styles.tableTd} style={{ fontFamily: 'monospace', color: '#60a5fa', fontSize: '0.875rem' }}>{sub.license_key}</td>
+                      <td className={styles.tableTd}>
+                        <span className={`${styles.tierBadge} ${sub.tier === 'premium' ? styles.tierPremium : styles.tierPro}`}>
+                          {sub.tier.toUpperCase()}
+                        </span>
+                      </td>
+                      <td className={styles.tableTd}>
+                        {sub.status === 'active' ? (
+                          <span className={styles.statusActive}><CheckCircle2 size={14}/> Active</span>
+                        ) : (
+                          <span className={styles.statusRevoked}><XCircle size={14}/> {sub.status}</span>
+                        )}
+                      </td>
+                      <td className={styles.tableTd}>
+                        <div className={styles.actionButtons}>
+                          <button onClick={() => toggleTier(sub.id, sub.tier)} className={styles.iconBtn} title="Change Tier">
+                            <ArrowUpCircle size={18}/>
+                          </button>
+                          <button onClick={() => toggleStatus(sub.id, sub.status)} className={styles.iconBtn} title="Toggle Status">
+                            <XCircle size={18}/>
+                          </button>
+                          <button onClick={() => deleteSubscription(sub.id)} className={`${styles.iconBtn} ${styles.iconBtnRed}`} title="Delete">
+                            <Trash2 size={18}/>
+                          </button>
                         </div>
                       </td>
                     </tr>
@@ -161,49 +199,47 @@ export default function AdminDashboard() {
 
         {/* TAB 2: PRICING MANAGEMENT */}
         {activeTab === 'pricing' && (
-          <div className="space-y-6">
-            <div className="bg-gray-900 rounded-2xl border border-gray-800 p-6">
-              <h3 className="text-xl font-bold mb-6 flex items-center gap-2"><Settings size={20}/> Edit Product Prices</h3>
+          <div className={styles.dashboardContainer}>
+            <div className={styles.tableCard} style={{ padding: '2rem' }}>
+              <h3 className={styles.title} style={{ fontSize: '1.25rem', marginBottom: '2rem' }}>
+                <Settings size={20} /> Edit Product Prices
+              </h3>
               
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className={styles.pricingGrid}>
                 {pricing.map((p) => (
-                  <div key={p.id} className="bg-black p-5 rounded-xl border border-gray-800">
-                    <div className="flex justify-between items-center mb-4">
-                      <span className="font-bold uppercase text-blue-400">{p.tier}</span>
-                      <span className="text-gray-500 text-sm">{p.duration} Month(s)</span>
+                  <div key={p.id} className={styles.priceCard}>
+                    <div className={styles.priceCardHeader}>
+                      <span className={styles.priceCardTier}>{p.tier}</span>
+                      <span className={styles.priceCardDuration}>{p.duration} Month(s)</span>
                     </div>
                     
-                    <div className="flex items-center gap-2">
-                      <span className="text-xl">$</span>
+                    <div className={styles.priceInputWrapper}>
+                      <span style={{ fontSize: '1.5rem' }}>$</span>
                       <input 
                         type="number" 
                         step="0.01"
-                        className="bg-transparent text-2xl font-bold outline-none w-full"
-                        // Use draft value if exists, otherwise use DB value
+                        className={styles.priceInput}
                         value={draftPrices[p.id] !== undefined ? draftPrices[p.id] : p.price}
                         onChange={(e) => setDraftPrices({ ...draftPrices, [p.id]: parseFloat(e.target.value) })}
                       />
                     </div>
-                    <p className="text-[10px] text-gray-500 mt-2 uppercase tracking-tight">Changes are temporary until you save</p>
+                    <p style={{ fontSize: '0.7rem', color: '#64748b', marginTop: '1rem', textTransform: 'uppercase' }}>
+                      Pending change
+                    </p>
                   </div>
                 ))}
               </div>
 
-              {/* THE SAVE ALL BUTTON */}
-              <div className="mt-10 pt-6 border-t border-gray-800 flex flex-col items-center">
+              <div className={styles.saveSection}>
                 <button 
                   onClick={handleSaveAll}
                   disabled={Object.keys(draftPrices).length === 0 || isUpdating === 'pricing'}
-                  className={`flex items-center gap-2 px-10 py-4 rounded-xl font-bold transition-all ${
-                    Object.keys(draftPrices).length === 0 
-                    ? 'bg-gray-800 text-gray-500 cursor-not-allowed' 
-                    : 'bg-green-600 hover:bg-green-500 text-white shadow-lg shadow-green-900/20'
-                  }`}
+                  className={styles.saveButton}
                 >
-                  {isUpdating === 'pricing' ? <RefreshCw className="animate-spin" /> : <Save size={20} />}
+                  {isUpdating === 'pricing' ? <RefreshCw className="animate-spin" size={20} /> : <Save size={20} />}
                   {isUpdating === 'pricing' ? 'Saving...' : 'Save All Changes'}
                 </button>
-                <p className="text-gray-500 text-sm mt-3">
+                <p className={styles.statusText}>
                   {Object.keys(draftPrices).length > 0 
                     ? `You have ${Object.keys(draftPrices).length} pending change(s)` 
                     : 'No changes pending'}

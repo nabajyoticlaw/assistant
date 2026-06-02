@@ -1,0 +1,279 @@
+/* admin.module.css */
+
+/* Base Layout - Matches user.module.css */
+.pageWrapper {
+    box-sizing: border-box;
+    min-height: 100vh;
+    background: radial-gradient(circle at top center, #1e1b4b 0%, #020617 100%);
+    color: #f8fafc;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    padding: 2rem 1rem;
+  }
+  
+  /* Login Screen Styles */
+  .loginWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+  }
+  
+  .loginCard {
+    box-sizing: border-box;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    padding: 2.5rem;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  }
+  
+  .loginTitle {
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .loginInput {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    color: white;
+    margin-bottom: 1rem;
+    outline: none;
+  }
+  
+  .loginButton {
+    box-sizing: border-box;
+    width: 100%;
+    background: linear-gradient(135deg, #6366f1 0%, #a855f9 100%);
+    color: white;
+    border: none;
+    padding: 1rem;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  
+  .loginButton:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+  }
+  
+  /* Dashboard Main Layout */
+  .dashboardContainer {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2.5rem;
+  }
+  
+  .title {
+    font-size: 2rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  
+  .tabGroup {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+  
+  .tabButton {
+    padding: 0.5rem 1.25rem;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s;
+    background: rgba(255, 255, 255, 0.05);
+    color: #94a3b8;
+  }
+  
+  .tabButtonActive {
+    background: #6366f1;
+    color: white;
+  }
+  
+  .refreshButton {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    color: white;
+  }
+  
+  /* Table Styles */
+  .tableCard {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    overflow: hidden;
+  }
+  
+  .tableWrapper {
+    overflow-x: auto;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+  }
+  
+  .tableTh {
+    padding: 1rem;
+    color: #64748b;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .tableTd {
+    padding: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  
+  .rowHover:hover {
+    background: rgba(255, 255, 255, 0.03);
+  }
+  
+  .tierBadge {
+    padding: 0.25rem 0.5rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+  
+  .tierPremium { background: rgba(168, 85, 247, 0.2); color: #c084fc; }
+  .tierPro { background: rgba(59, 130, 246, 0.2); color: #60a5fa; }
+  
+  .statusActive { color: #4ade80; display: flex; align-items: center; gap: 4px; }
+  .statusRevoked { color: #f87171; display: flex; align-items: center; gap: 4px; }
+  
+  .actionButtons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+  }
+  
+  .iconBtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #94a3b8;
+    transition: color 0.2s;
+  }
+  
+  .iconBtn:hover { color: white; }
+  .iconBtnRed { color: #ef4444; }
+  
+  /* Pricing Grid Styles */
+  .pricingGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .priceCard {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 1.5rem;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .priceCardHeader {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+  
+  .priceCardTier {
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #60a5fa;
+  }
+  
+  .priceCardDuration {
+    color: #64748b;
+    font-size: 0.875rem;
+  }
+  
+  .priceInputWrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .priceInput {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 1.875rem;
+    font-weight: 700;
+    width: 100%;
+    outline: none;
+  }
+  
+  .priceInput::placeholder { color: rgba(255,255,255,0.2); }
+  
+  .saveSection {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .saveButton {
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+    color: white;
+    border: none;
+    padding: 1rem 2.5rem;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s;
+    box-shadow: 0 10px 20px -5px rgba(34, 197, 94, 0.3);
+  }
+  
+  .saveButton:disabled {
+    background: #334155;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+  
+  .saveButton:hover:not(:disabled) {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+  }
+  
+  .statusText {
+    color: #64748b;
+    font-size: 0.875rem;
+    margin-top: 0.75rem;
+  }
+  
