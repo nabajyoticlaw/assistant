@@ -14,9 +14,9 @@ const Page = () => {
       {/* Floating Elements Layer */}
       <div className={styles.floatingElements}>
         {/* Large Images - Ensure these files exist in your /public folder */}
-        <img src="/img1.png" className={`${styles.floatingImg} ${styles.img1}`} alt="" />
-        <img src="/img2.png" className={`${styles.floatingImg} ${styles.img2}`} alt="" />
-        <img src="/img3.png" className={`${styles.floatingImg} ${styles.img3}`} alt="" />
+        <img src="../img1.png" className={`${styles.floatingImg} ${styles.img1}`} alt="" />
+        <img src="../img2.png" className={`${styles.floatingImg} ${styles.img2}`} alt="" />
+        <img src="../img3.png" className={`${styles.floatingImg} ${styles.img3}`} alt="" />
 
         {/* Text Tiles */}
         <div className={`${styles.textTile} ${styles.tileLarge} ${styles.tile1}`}>
