@@ -1,162 +1,166 @@
 /* user.module.css */
 
-/* Base Layout */
+/* Base Layout - Deep Space Theme */
 .pageWrapper {
   min-height: 100vh;
-  background-color: #000000;
-  color: #E0E0E0;
-  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
-  padding: 2.5rem;
+  background: radial-gradient(circle at top center, #1e1b4b 0%, #020617 100%);
+  color: #f8fafc;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4rem 1rem;
+  overflow-x: hidden;
 }
 
-/* Card / Container Style (The "Group Box" equivalent) */
+/* Hero Section Styling */
+.heroSection {
+  text-align: center;
+  margin-bottom: 4rem;
+  animation: fadeIn 1s ease-out;
+}
+
+.heroTitle {
+  font-size: 4rem;
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  background: linear-gradient(to bottom right, #ffffff, #94a3b8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 1rem;
+}
+
+.heroSubtitle {
+  color: #94a3b8;
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+/* Glassmorphism Card */
 .card {
-  background-color: rgba(20, 20, 20, 0.8);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 2.5rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  width: 100%;
+}
+
+/* Form Alignment & Spacing */
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* Premium Inputs */
+.input, .select {
+  width: 100%;
+  padding: 1rem 1.25rem;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
-  padding: 2rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-}
-
-/* Form Elements (The "QLineEdit/QTextEdit" equivalent) */
-.input {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  background-color: rgba(20, 20, 20, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  color: #E0E0E0;
-  font-size: 14px;
+  color: #ffffff;
+  font-size: 1rem;
   outline: none;
-  transition: border 0.2s ease, background-color 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.input:focus {
-  border: 1px solid rgba(187, 134, 252, 0.6);
-  background-color: rgba(25, 25, 25, 0.8);
+.input:focus, .select:focus {
+  border-color: #818cf8;
+  background: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 0 4px rgba(129, 140, 248, 0.1);
 }
 
-.select {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  background-color: rgba(30, 30, 30, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  color: #E0E0E0;
-  outline: none;
-  appearance: none; /* Removes default browser styling */
+/* Price Display */
+.priceDisplay {
+  text-align: center;
+  padding: 1rem 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #e2e8f0;
+  letter-spacing: 1px;
 }
 
-/* Buttons (The "QPushButton" equivalent) */
-.button {
-  background-color: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 6px;
-  padding: 0.5rem 1.5rem;
-  color: #CCCCCC;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.button:hover {
-  background-color: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: #FFFFFF;
-}
-
+/* Futuristic Buttons */
 .buttonPrimary {
-  background: linear-gradient(90deg, rgba(187, 134, 252, 0.8), rgba(37, 99, 235, 0.8));
+  width: 100%;
+  background: linear-gradient(135deg, #6366f1 0%, #a855f9 100%);
   color: white;
   border: none;
+  padding: 1rem 2rem;
+  border-radius: 12px;
   font-weight: 600;
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
-  transition: opacity 0.2s;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
 }
 
 .buttonPrimary:hover {
-  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+  filter: brightness(1.1);
 }
 
 .buttonPrimary:disabled {
-  background: #333;
-  color: #777;
+  background: #334155;
   cursor: not-allowed;
+  transform: none;
 }
 
-.buttonSuccess {
-  background-color: #16a34a;
+.buttonDownload {
+  background: rgba(34, 197, 94, 0.2);
+  border: 1px solid #22c55e;
+  color: #4ade80;
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.buttonDownload:hover {
+  background: #22c55e;
   color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
 }
 
-/* Admin Table Styles */
-.tableContainer {
-  overflow-x: auto;
-  background-color: rgba(20, 20, 20, 0.4);
-  border-radius: 12px;
-}
-
-.table {
-  width: 100%;
-  border-collapse: collapse;
-  text-align: left;
-}
-
-.table th {
-  color: #888888;
-  text-transform: uppercase;
-  font-size: 12px;
-  letter-spacing: 1px;
-  padding: 1rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.table td {
-  padding: 1rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-}
-
-.table tr:hover {
-  background-color: rgba(255, 255, 255, 0.03);
-}
-
-/* Pricing Cards */
-.pricingGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
-}
-
-.pricingCard {
-  background-color: rgba(0, 0, 0, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 1.5rem;
-  border-radius: 12px;
-}
-
-/* Badges */
-.badge {
-  padding: 2px 8px;
-  border-radius: 4px;
-  font-size: 12px;
-  font-weight: bold;
-  text-transform: uppercase;
-}
-
-.badgePro { background: rgba(59, 130, 246, 0.2); color: #60a5fa; }
-.badgePremium { background: rgba(168, 43, 224, 0.2); color: #c084fc; }
-
-/* Modal */
+/* Success Modal */
 .modalOverlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.85);
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 50;
+  z-index: 100;
+}
+
+.modalContent {
+  animation: slideUp 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.keyDisplay {
+  background: rgba(0, 0, 0, 0.4);
+  padding: 1.5rem;
+  border-radius: 12px;
+  font-family: 'Monospace', monospace;
+  border: 1px dashed rgba(255, 255, 255, 0.3);
+  color: #38bdf8;
+  font-size: 1.2rem;
+  margin: 1.5rem 0;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
 }

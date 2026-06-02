@@ -13,13 +13,11 @@ export default function LandingPage() {
   const [generatedKey, setGeneratedKey] = useState<string | null>(null);
   const [keyData, setKeyData] = useState<any>(null);
   
-  // NEW: State for dynamic pricing
   const [prices, setPrices] = useState<any[]>([]);
   const [fetchingPrices, setFetchingPrices] = useState(true);
 
   const GOOGLE_DRIVE_LINK = "https://drive.google.com/drive/folders/1lBXZpuHhCtDeF-z9x50UrLJ7m1Zbkkwi?usp=sharing";
 
-  // Fetch prices from Supabase on load
   useEffect(() => {
     const fetchPrices = async () => {
       const { data, error } = await supabase.from('pricing_config').select('*');
@@ -29,7 +27,6 @@ export default function LandingPage() {
     fetchPrices();
   }, []);
 
-  // Find price from the fetched array
   const getCost = (t: string, d: number) => {
     const match = prices.find((p) => p.tier === t && p.duration === d);
     return match ? match.price.toFixed(2) : "0.00";
@@ -78,63 +75,80 @@ export default function LandingPage() {
   };
 
   return (
-<div className={styles.pageWrapper}>
-  <section className="text-center mb-20">
-    <h1 className="text-5xl font-bold mb-4">Assistant AI</h1>
-    <p className="text-gray-400 mb-6">Get the latest assets and models.</p>
-    <a href={GOOGLE_DRIVE_LINK} className={styles.buttonPrimary}>
-      Download Folder Now
-    </a>
-  </section>
+    <div className={styles.pageWrapper}>
+      {/* Hero Section */}
+      <header className={styles.heroSection}>
+        <h1 className={styles.heroTitle}>Assistant AI</h1>
+        <p className={styles.heroSubtitle}>Experience the next generation of digital assets.</p>
+        <a href={GOOGLE_DRIVE_LINK} target="_blank" rel="noreferrer" className={styles.buttonPrimary} style={{ display: 'inline-block', textDecoration: 'none', padding: '0.75rem 2rem' }}>
+          Access Asset Library
+        </a>
+      </header>
 
-  <section className={`${styles.card} max-w-md mx-auto`}>
-    <h2 className="text-2xl font-bold mb-6 text-center">Upgrade to Pro / Premium</h2>
-    
-    <div className="space-y-4">
-      <input 
-        type="email" 
-        placeholder="Enter your email" 
-        className={styles.input}
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
+      {/* Subscription Card */}
+      <main className={styles.card} style={{ maxWidth: '500px' }}>
+        <h2 style={{ fontSize: '1.75rem', fontWeight: 700, textAlign: 'center', marginBottom: '2rem' }}>
+          Upgrade Your Access
+        </h2>
+        
+        <div className={styles.formGroup}>
+          <input 
+            type="email" 
+            placeholder="Enter your professional email" 
+            className={styles.input}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
 
-      <select className={styles.select} value={tier} onChange={(e) => setTier(e.target.value)}>
-        <option value="pro">Pro Tier</option>
-        <option value="premium">Premium Tier</option>
-      </select>
+          <select className={styles.select} value={tier} onChange={(e) => setTier(e.target.value)}>
+            <option value="pro">Pro Tier Access</option>
+            <option value="premium">Premium Tier Access</option>
+          </select>
 
-      <select className={styles.select} value={duration} onChange={(e) => setDuration(Number(e.target.value))}>
-        <option value={1}>1 Month</option>
-        <option value={3}>3 Months</option>
-        <option value={12}>1 Year</option>
-      </select>
+          <select className={styles.select} value={duration} onChange={(e) => setDuration(Number(e.target.value))}>
+            <option value={1}>1 Month Subscription</option>
+            <option value={3}>3 Month Subscription</option>
+            <option value={12}>12 Month Subscription (Best Value)</option>
+          </select>
 
-      <div className="text-center py-2 text-xl font-semibold">
-        {fetchingPrices ? "Loading price..." : `Estimated Cost: $${getCost(tier, duration)}`}
-      </div>
-
-      <button onClick={handleUpgrade} disabled={loading} className={styles.buttonPrimary}>
-        {loading ? "Generating..." : "Get My Key"}
-      </button>
-    </div>
-
-    {/* Success Modal */}
-    {generatedKey && (
-      <div className={styles.modalOverlay}>
-        <div className={`${styles.card} max-w-sm w-full text-center border-blue-500`}>
-          <h3 className="text-2xl font-bold mb-2 text-blue-400">Activation Success!</h3>
-          <div className="bg-black p-4 rounded font-mono text-lg mb-6 border border-gray-600 select-all">
-            {generatedKey}
+          <div className={styles.priceDisplay}>
+            {fetchingPrices ? "Calculating..." : `$${getCost(tier, duration)}`}
           </div>
-          <div className="flex flex-col gap-3">
-            <button onClick={downloadKeyFile} className={styles.buttonSuccess}>Download .txt File</button>
-            <button onClick={() => setGeneratedKey(null)} className="text-gray-400 text-sm underline">Close</button>
+
+          <button 
+            onClick={handleUpgrade} 
+            disabled={loading} 
+            className={styles.buttonPrimary}
+          >
+            {loading ? "Processing..." : "Generate License Key"}
+          </button>
+        </div>
+      </main>
+
+      {/* Success Modal */}
+      {generatedKey && (
+        <div className={styles.modalOverlay}>
+          <div className={`${styles.card} ${styles.modalContent}`} style={{ maxWidth: '400px' }}>
+            <h3 style={{ fontSize: '1.5rem', fontWeight: 700, color: '#38bdf8', textAlign: 'center' }}>
+              License Activated
+            </h3>
+            <div className={styles.keyDisplay}>
+              {generatedKey}
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              <button onClick={downloadKeyFile} className={styles.buttonDownload}>
+                Download License (.txt)
+              </button>
+              <button 
+                onClick={() => setGeneratedKey(null)} 
+                style={{ background: 'none', border: 'none', color: '#94a3b8', cursor: 'pointer', textDecoration: 'underline' }}
+              >
+                Close Window
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-    )}
-  </section>
-</div>
+      )}
+    </div>
   );
 }
