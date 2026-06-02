@@ -79,22 +79,24 @@ export default function LandingPage() {
       {/* Hero Section */}
       <header className={styles.heroSection}>
         <h1 className={styles.heroTitle}>Assistant AI</h1>
-        <p className={styles.heroSubtitle}>Experience the next generation of digital assets.</p>
-        <a href={GOOGLE_DRIVE_LINK} target="_blank" rel="noreferrer" className={styles.buttonPrimary} style={{ display: 'inline-block', textDecoration: 'none', padding: '0.75rem 2rem' }}>
-          Access Asset Library
-        </a>
+        <p className={styles.heroSubtitle}>The premium standard for digital assets and models.</p>
+        <div className={styles.heroButtonContainer}>
+          <a href={GOOGLE_DRIVE_LINK} target="_blank" rel="noreferrer" className={styles.buttonSecondary}>
+            Explore Asset Library
+          </a>
+        </div>
       </header>
 
-      {/* Subscription Card */}
-      <main className={styles.card} style={{ maxWidth: '500px' }}>
-        <h2 style={{ fontSize: '1.75rem', fontWeight: 700, textAlign: 'center', marginBottom: '2rem' }}>
-          Upgrade Your Access
+      {/* Main Form Card */}
+      <main className={styles.card}>
+        <h2 style={{ fontSize: '1.5rem', fontWeight: 700, textAlign: 'center', marginBottom: '2rem' }}>
+          Subscription Plans
         </h2>
         
         <div className={styles.formGroup}>
           <input 
             type="email" 
-            placeholder="Enter your professional email" 
+            placeholder="Enter your email address" 
             className={styles.input}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -108,7 +110,7 @@ export default function LandingPage() {
           <select className={styles.select} value={duration} onChange={(e) => setDuration(Number(e.target.value))}>
             <option value={1}>1 Month Subscription</option>
             <option value={3}>3 Month Subscription</option>
-            <option value={12}>12 Month Subscription (Best Value)</option>
+            <option value={12}>12 Month Subscription</option>
           </select>
 
           <div className={styles.priceDisplay}>
@@ -128,22 +130,22 @@ export default function LandingPage() {
       {/* Success Modal */}
       {generatedKey && (
         <div className={styles.modalOverlay}>
-          <div className={`${styles.card} ${styles.modalContent}`} style={{ maxWidth: '400px' }}>
+          <div className={`${styles.card} ${styles.modalContent}`}>
             <h3 style={{ fontSize: '1.5rem', fontWeight: 700, color: '#38bdf8', textAlign: 'center' }}>
-              License Activated
+              Activation Successful
             </h3>
             <div className={styles.keyDisplay}>
               {generatedKey}
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               <button onClick={downloadKeyFile} className={styles.buttonDownload}>
-                Download License (.txt)
+                Download License File
               </button>
               <button 
                 onClick={() => setGeneratedKey(null)} 
                 style={{ background: 'none', border: 'none', color: '#94a3b8', cursor: 'pointer', textDecoration: 'underline' }}
               >
-                Close Window
+                Close
               </button>
             </div>
           </div>
