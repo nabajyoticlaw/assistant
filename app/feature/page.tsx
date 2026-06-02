@@ -23,8 +23,7 @@ export default function FeaturePage() {
       <header className={styles.heroSection}>
         <h1 className={styles.heroTitle}>Capabilities</h1>
         <p className={styles.heroSubtitle}>
-          Experience the next evolution of digital companionship. 
-          More than an AI—a living, breathing digital presence.
+        Experience the next evolution of digital companionship. More than an AI—a living, breathing digital presence.
         </p>
       </header>
 
