@@ -1,18 +1,19 @@
 import React from 'react';
-import styles from '../../download.module.css';
+import styles from './download.module.css';
 
 const DownloadPage: React.FC = () => {
   return (
     <div className={styles.pageWrapper}>
+      {/* Hero Section */}
       <header className={styles.heroSection}>
         <h1 className={styles.heroTitle}>Downloads</h1>
         <p className={styles.heroSubtitle}>
-          Get everything you need to run your local AI ecosystem.
+          Access the complete AI toolkit and local models.
         </p>
       </header>
 
       <main className={styles.mainContainer}>
-        {/* Main Featured Card */}
+        {/* 1. The Apex (Top Card) */}
         <section className={`${styles.card} ${styles.featuredCard}`}>
           <h2 className={styles.cardTitle}>Assistant Package</h2>
           <p className={styles.cardDescription}>
@@ -27,9 +28,9 @@ const DownloadPage: React.FC = () => {
           </a>
         </section>
 
-        {/* Secondary Cards Grid */}
+        {/* 2. The Base (Bottom Row) */}
         <div className={styles.secondaryGrid}>
-          {/* Ollama Card */}
+          {/* Ollama Card (Left side of triangle) */}
           <section className={`${styles.card} ${styles.secondaryCard}`}>
             <h2 className={styles.cardTitle}>Ollama App</h2>
             <p className={styles.cardDescription}>
@@ -45,7 +46,7 @@ const DownloadPage: React.FC = () => {
             </a>
           </section>
 
-          {/* HuggingFace Card */}
+          {/* mxbai Card (Right side of triangle) */}
           <section className={`${styles.card} ${styles.secondaryCard}`}>
             <h2 className={styles.cardTitle}>mxbai-embed-large</h2>
             <p className={styles.cardDescription}>
