@@ -13,9 +13,10 @@ export default function Page() {
       
       {/* Navigation Menu */}
       <nav className={styles.navContainer}>
-        <a href="#" className={styles.navLink}>Features</a>
-        <a href="#" className={styles.navLink}>Activation</a>
-        <a href="#" className={styles.navLink}>Downloads</a>
+        {/* 2. Replace <a> with <Link> and update the href to match your folder names */}
+        <Link href="/feature" className={styles.navLink}>Features</Link>
+        <Link href="/activation" className={styles.navLink}>Activation</Link>
+        <Link href="/download" className={styles.navLink}>Downloads</Link>
       </nav>
 
       {/* Floating Elements Layer */}
