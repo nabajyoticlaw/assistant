@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Assistant | Future of Intelligence</title>
+    <style>
+        /* --- START OF YOUR PROVIDED CSS --- */
+        .pageWrapper {
+            box-sizing: border-box;
+            min-height: 100vh;
+            background: radial-gradient(circle at top center, #1e1b4b 0%, #020617 100%);
+            color: #f8fafc;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0; /* Removed padding for full-bleed images */
+            overflow: hidden; 
+            position: relative;
+        }
+
+        .heroSection {
+            text-align: center;
+            width: 100%;
+            max-width: 800px;
+            animation: fadeIn 1s ease-out;
+            z-index: 1; /* Keeps text above the large images */
+            pointer-events: none; /* Allows clicking through text if needed */
+        }
+
+        .heroTitle {
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 800;
+            letter-spacing: -0.05em;
+            background: linear-gradient(to bottom right, #ffffff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .heroSubtitle {
+            color: #94a3b8;
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .buttonSecondary {
+            box-sizing: border-box;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #e2e8f0;
+            padding: 1rem 2.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-block;
+            pointer-events: auto; /* Re-enables clicking on the button */
+        }
+
+        .buttonSecondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        /* --- END OF YOUR PROVIDED CSS --- */
+
+        /* --- NAVIGATION --- */
+        .navContainer {
+            position: fixed;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0.7rem 2rem;
+            border-radius: 12px; /* Rectangular floating tile */
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .navLink {
+            color: #e2e8f0;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .navLink:hover { color: #38bdf8; }
+
+        /* --- LARGE FLOATING ELEMENTS --- */
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1; /* Behind the hero text */
+        }
+
+        .floating-img {
+            position: absolute;
+            /* Made them much larger */
+            width: 750px; 
+            height: auto;
+            opacity: 0.8; /* Slightly faded to keep text readable */
+            filter: blur(1px); /* Softens the edges for a modern look */
+            animation: floatImg 20s ease-in-out infinite;
+        }
+
+        /* Floating Text Tiles (Different Sizes) */
+        .text-tile {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 1.5rem;
+            border-radius: 16px;
+            color: #f8fafc;
+            font-size: 0.9rem;
+            font-weight: 500;
+            animation: floatText 8s ease-in-out infinite;
+            z-index: 5;
+        }
+
+        /* Varying sizes for text tiles */
+        .tile-large { font-size: 1.2rem; padding: 1.5rem 2rem; }
+        .tile-small { font-size: 1.0rem; padding: 0.5rem 1rem; }
+
+        /* Animations */
+        @keyframes floatImg {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(40px, -60px) rotate(5deg); }
+        }
+
+        @keyframes floatText {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(20px, -20px); }
+        }
+
+        /* Positioning Large Images */
+        .img-1 { top: 10%; left: 5%; animation-delay: 0s; }
+        .img-3 { top: 30%; right: 5%; animation-delay: -5s; }
+        .img-2 { bottom: 10%; left: 20%; animation-delay: -10s; }
+
+        /* Positioning Text Tiles */
+        .tile-1 { top: 20%; right: 15%; animation-delay: 1s; }
+        .tile-2 { top: 70%; left: 10%; animation-delay: 3s; }
+        .tile-3 { bottom: 25%; right: 10%; animation-delay: 5s; }
+        .tile-4 { bottom: 75%; left: 10%; animation-delay: 6s; }
+        .tile-5 { bottom: 55%; right: 15%; animation-delay: 4s; }
+        .tile-6 { bottom: 65%; right: 30%; animation-delay: 7s; }
+
+        @media (max-width: 768px) {
+            .floating-img { width: 350px; opacity: 0.2; }
+            .navContainer { width: 90%; gap: 1rem; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="pageWrapper">
+        
+        <!-- Navigation Menu -->
+        <nav class="navContainer">
+            <a href="#" class="navLink">Features</a>
+            <a href="#" class="navLink">Activation</a>
+            <a href="#" class="navLink">Downlods</a>
+        </nav>
+
+        <!-- Floating Elements Layer -->
+        <div class="floating-elements">
+            <!-- Large Images -->
+            <img src="img1.png" class="floating-img img-1" alt="">
+            <img src="img2.png" class="floating-img img-2" alt="">
+            <img src="img3.png" class="floating-img img-3" alt="">
+
+            <!-- Text Tiles of Different Sizes -->
+            <div class="text-tile tile-large tile-1">✨ High Intelligence</div>
+            <div class="text-tile tile-large tile-2">🤖 Unlimited vector Memory</div>
+            <div class="text-tile tile-large tile-3">🔒 100% Privacy First</div>
+            <div class="text-tile tile-large tile-4">✨ Highly Customizable</div>
+            <div class="text-tile tile-small tile-5">🤖 System Controls</div>
+            <div class="text-tile tile-small tile-6">🤖 Social media Automated</div>
+        </div>
+
+        <!-- Main Hero Content -->
+        <section class="heroSection">
+            <h1 class="heroTitle">Intelligence<br>Evolved.</h1>
+            <p class="heroSubtitle">The ultimate AI assistant designed to augment your human potential through seamless automation.</p>
+            
+            <div class="heroButtonContainer">
+                <a href="#" class="buttonSecondary">Explore the Future</a>
+            </div>
+        </section>
+
+    </div>
+
+</body>
+</html>
