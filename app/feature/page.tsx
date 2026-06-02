@@ -3,11 +3,11 @@ import styles from '../../feature.module.css';
 
 // 1. IMPORT THE IMAGES HERE
 // Adjust the path '../' based on where your images actually sit relative to this file
-import img4 from '../../img4.png'; 
-import img5 from '../../img5.png';
-import img6 from '../../img6.png';
-import img7 from '../../img7.png';
-import img8 from '../../img8.png';
+import img4 from '../../asset/img4.png'; 
+import img5 from '../../asset/img5.png';
+import img6 from '../../asset/img6.png';
+import img7 from '../../asset/img7.png';
+import img8 from '../../asset/img8.png';
 
 interface Feature {
   title: string;
