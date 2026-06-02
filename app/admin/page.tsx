@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import { 
   ShieldAlert, Trash2, RefreshCw, CheckCircle2, XCircle, 
-  ArrowUpCircle, ArrowDownCircle, Key, User, DollarSign, Settings, Check
+  ArrowUpCircle, ArrowDownCircle, Key, User, DollarSign, Settings, Check, Save
 } from 'lucide-react';
 
 const supabase = createClient(
@@ -20,9 +20,10 @@ export default function AdminDashboard() {
   const [password, setPassword] = useState('');
   const [isUpdating, setIsUpdating] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'users' | 'pricing'>('users');
-  
-  // State to hold temporary price values while typing
-  const [editPrices, setEditPrices] = useState<Record<string, number>>({});
+
+  // --- NEW: DRAFT STATE ---
+  // This tracks changes locally so they don't "revert" while typing
+  const [draftPrices, setDraftPrices] = useState<Record<string, number>>({});
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -37,6 +38,7 @@ export default function AdminDashboard() {
     setSubscriptions(subs || []);
     setPricing(prices || []);
     setLoading(false);
+    setDraftPrices({}); // Reset drafts on refresh
   };
 
   useEffect(() => {
@@ -66,25 +68,32 @@ export default function AdminDashboard() {
     if (error) alert(error.message); else fetchData();
   };
 
-  // --- NEW: Improved Pricing Action ---
-  const handleSavePrice = async (row: any) => {
-    const newPrice = editPrices[row.id];
-    if (newPrice === undefined) return;
+  // --- NEW: BULK SAVE LOGIC ---
+  const handleSaveAll = async () => {
+    if (Object.keys(draftPrices).length === 0) return;
 
     setIsUpdating('pricing');
-    // We use upsert: it looks for the tier/duration combo and updates it
+    
+    // Convert the draft object into an array of database-ready rows
+    const updates = Object.entries(draftPrices).map(([id, newPrice]) => {
+      const originalRow = pricing.find((p) => p.id === id);
+      return {
+        tier: originalRow.tier,
+        duration: originalRow.duration,
+        price: newPrice
+      };
+    });
+
+    // Perform a single bulk upsert
     const { error } = await supabase
       .from('pricing_config')
-      .upsert({ 
-        tier: row.tier, 
-        duration: row.duration, 
-        price: newPrice 
-      }, { onConflict: 'tier, duration' });
+      .upsert(updates, { onConflict: 'tier, duration' });
 
     if (error) {
-      alert("Error: " + error.message);
+      alert("Save failed: " + error.message);
     } else {
-      fetchData();
+      setDraftPrices({}); // Clear drafts after successful save
+      fetchData(); // Refresh to sync with DB
     }
     setIsUpdating(null);
   };
@@ -93,7 +102,7 @@ export default function AdminDashboard() {
     return (
       <div className="min-h-screen bg-black text-white flex items-center justify-center p-4">
         <div className="max-w-md w-full bg-gray-900 p-8 rounded-2xl border border-gray-800 shadow-2xl">
-          <div className="flex justify-center mb-6"><ShieldAlert className="text-blue-500 w-12 h-12" /></div>
+          <div className="flex justify-center mb-6"><ShieldAlert className="text-blue-500 w-12 h-12" /></div >
           <h1 className="text-2xl font-bold text-center mb-2">Admin Control Panel</h1>
           <form onSubmit={handleLogin} className="space-y-4">
             <input type="password" className="w-full p-3 bg-black border border-gray-700 rounded-lg outline-none" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
@@ -152,37 +161,55 @@ export default function AdminDashboard() {
 
         {/* TAB 2: PRICING MANAGEMENT */}
         {activeTab === 'pricing' && (
-          <div className="bg-gray-900 rounded-2xl border border-gray-800 p-6">
-            <h3 className="text-xl font-bold mb-6 flex items-center gap-2"><Settings size={20}/> Edit Product Prices</h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {pricing.map((p) => (
-                <div key={p.id} className="bg-black p-5 rounded-xl border border-gray-800">
-                  <div className="flex justify-between items-center mb-4">
-                    <span className="font-bold uppercase text-blue-400">{p.tier}</span>
-                    <span className="text-gray-500 text-sm">{p.duration} Month(s)</span>
+          <div className="space-y-6">
+            <div className="bg-gray-900 rounded-2xl border border-gray-800 p-6">
+              <h3 className="text-xl font-bold mb-6 flex items-center gap-2"><Settings size={20}/> Edit Product Prices</h3>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {pricing.map((p) => (
+                  <div key={p.id} className="bg-black p-5 rounded-xl border border-gray-800">
+                    <div className="flex justify-between items-center mb-4">
+                      <span className="font-bold uppercase text-blue-400">{p.tier}</span>
+                      <span className="text-gray-500 text-sm">{p.duration} Month(s)</span>
+                    </div>
+                    
+                    <div className="flex items-center gap-2">
+                      <span className="text-xl">$</span>
+                      <input 
+                        type="number" 
+                        step="0.01"
+                        className="bg-transparent text-2xl font-bold outline-none w-full"
+                        // Use draft value if exists, otherwise use DB value
+                        value={draftPrices[p.id] !== undefined ? draftPrices[p.id] : p.price}
+                        onChange={(e) => setDraftPrices({ ...draftPrices, [p.id]: parseFloat(e.target.value) })}
+                      />
+                    </div>
+                    <p className="text-[10px] text-gray-500 mt-2 uppercase tracking-tight">Changes are temporary until you save</p>
                   </div>
-                  
-                  <div className="flex items-center gap-2">
-                    <span className="text-xl">$</span>
-                    <input 
-                      type="number" 
-                      step="0.01"
-                      className="bg-transparent text-2xl font-bold outline-none w-full"
-                      defaultValue={p.price}
-                      onChange={(e) => setEditPrices({ ...editPrices, [p.id]: parseFloat(e.target.value) })}
-                    />
-                  </div>
+                ))}
+              </div>
 
-                  <button 
-                    onClick={() => handleSavePrice(p)}
-                    className="mt-4 w-full bg-green-600 hover:bg-green-700 p-2 rounded font-bold flex items-center justify-center gap-2 transition"
-                  >
-                    <Check size={16} /> Save Price
-                  </button>
-                </div>
-              ))}
+              {/* THE SAVE ALL BUTTON */}
+              <div className="mt-10 pt-6 border-t border-gray-800 flex flex-col items-center">
+                <button 
+                  onClick={handleSaveAll}
+                  disabled={Object.keys(draftPrices).length === 0 || isUpdating === 'pricing'}
+                  className={`flex items-center gap-2 px-10 py-4 rounded-xl font-bold transition-all ${
+                    Object.keys(draftPrices).length === 0 
+                    ? 'bg-gray-800 text-gray-500 cursor-not-allowed' 
+                    : 'bg-green-600 hover:bg-green-500 text-white shadow-lg shadow-green-900/20'
+                  }`}
+                >
+                  {isUpdating === 'pricing' ? <RefreshCw className="animate-spin" /> : <Save size={20} />}
+                  {isUpdating === 'pricing' ? 'Saving...' : 'Save All Changes'}
+                </button>
+                <p className="text-gray-500 text-sm mt-3">
+                  {Object.keys(draftPrices).length > 0 
+                    ? `You have ${Object.keys(draftPrices).length} pending change(s)` 
+                    : 'No changes pending'}
+                </p>
+              </div>
             </div>
-            {isUpdating === 'pricing' && <p className="mt-4 text-blue-500 animate-pulse">Updating database...</p>}
           </div>
         )}
       </div>
