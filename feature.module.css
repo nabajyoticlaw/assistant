@@ -44,29 +44,30 @@
     color: #38bdf8;
   }
   
-  /* --- HERO SECTION --- */
+  /* Hero Section */
   .heroSection {
     text-align: center;
-    padding: 8rem 1rem 4rem 1rem;
+    margin-bottom: 4rem;
     width: 100%;
-    max-width: 800px;
+    max-width: 600px;
+    animation: fadeIn 1s ease-out;
   }
   
   .heroTitle {
-    font-size: clamp(2.5rem, 8vw, 4.5rem);
+    font-size: clamp(2.5rem, 5vw, 4rem);
     font-weight: 800;
     letter-spacing: -0.05em;
     background: linear-gradient(to bottom right, #ffffff, #94a3b8);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
   }
   
   .heroSubtitle {
     color: #94a3b8;
-    font-size: 1.25rem;
-    line-height: 1.6;
+    font-size: 1.1rem;
   }
+  
   
   /* --- FEATURE LIST --- */
   .featureList {
