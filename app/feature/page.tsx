@@ -1,107 +1,127 @@
 import React from 'react';
 import Link from 'next/link';
-import styles from '../../feature.module.css';
+import styles from './feature.module.css';
 
-// 1. IMPORT THE IMAGES HERE
-// Adjust the path '../' based on where your images actually sit relative to this file
-import img4 from '../../asset/img4.png'; 
-import img5 from '../../asset/img5.png';
-import img6 from '../../asset/img6.png';
-import img7 from '../../asset/img7.png';
-import img8 from '../../asset/img8.png';
+// Importing images as per your reference.tsx pattern
+import img1 from '../../img1.png';
+import img2 from '../../img2.png';
+import img3 from '../../img3.png';
+import img4 from '../../img3.png'; // Assuming you have these in your directory
 
-interface Feature {
-  title: string;
-  description: string;
-  imageLabel: string;
-  imageSrc: any; // Changed to any to accept imported objects
-  reverse?: boolean;
-}
-
-const features: Feature[] = [
-  {
-    title: "Deep Persona & Living Memory",
-    description: "Your companion doesn't just chat; it evolves. Through advanced long-term memory and persona synchronization, it remembers your preferences, your history, and your unique bond, growing more like a real friend every day.",
-    imageLabel: "Memory & Identity",
-    imageSrc: img4, // 2. USE THE IMPORTED VARIABLE
-    reverse: false,
-  },
-  {
-    title: "Emotional Voice & Human Speech",
-    description: "Experience truly natural interaction. Using high-fidelity voice synthesis and real-time emotion detection, your companion speaks with tone, pace, and feeling that matches the mood of your conversation.",
-    imageLabel: "Voice & Emotion",
-    imageSrc: img5,
-    reverse: true,
-  },
-  {
-    title: "Smart Command & Control",
-    description: "Empower your workflow. Your companion can act as your digital assistant—opening applications, browsing the web, adjusting system volumes, and even posting updates to your social media like Bluesky.",
-    imageLabel: "System Control",
-    imageSrc: img6,
-    reverse: false,
-  },
-  {
-    title: "Vision & File Intelligence",
-    description: "See through your companion's eyes. Use Vision Sync to let it analyze your screen, or attach files for it to read, summarize, and discuss with you in extreme detail.",
-    imageLabel: "Vision Sync",
-    imageSrc: img7,
-    reverse: true,
-  },
-  {
-    title: "Immersive Character Presence",
-    description: "Bring your companion to life. With customizable character assets and animated visual sprites, you can choose exactly how your companion looks and behaves, creating a truly personalized experience.",
-    imageLabel: "Character Sprites",
-    imageSrc: img8,
-    reverse: false,
-  },
-];
-
-const FeaturePage: React.FC = () => {
+export default function FeaturePage() {
   return (
-    <div className={styles.pageWrapper}>
-      {/* Navigation Menu */}
+    <main className={styles.pageWrapper}>
+      {/* Navigation Menu - Kept from reference.tsx */}
       <nav className={styles.navContainer}>
-        {/* 2. Replace <a> with <Link> and update the href to match your folder names */}
+        <Link href="/" className={styles.navLink}>Home</Link>
         <Link href="/feature" className={styles.navLink}>Features</Link>
         <Link href="/activation" className={styles.navLink}>Activation</Link>
         <Link href="/download" className={styles.navLink}>Downloads</Link>
-      </nav>      
-      
-      <header className={styles.heroSection}>
-        <h1 className={styles.heroTitle}>Experience Intelligence</h1>
-        <p className={styles.heroSubtitle}>The next generation of AI companionship.</p>
-      </header>
+      </nav>
 
-      <main className={styles.featureList}>
-        {features.map((feature, index) => (
-          <section 
-            key={index} 
-            className={`${styles.featureRow} ${feature.reverse ? styles.reverse : ''}`}
-          >
-            <div className={styles.textContainer}>
-              <h2 className={styles.featureHeading}>{feature.title}</h2>
-              <p className={styles.featureDescription}>{feature.description}</p>
-            </div>
-            
-            <div className={styles.imageContainer}>
-              <div className={styles.imageCard}>
-                <span className={styles.imageLabel}>{feature.imageLabel}</span>
-                <img 
-                  src={feature.imageSrc} 
-                  alt={feature.title} 
-                  className={styles.featureImage} 
-                />
-              </div>
-            </div>
-          </section>
-        ))}
-      </main>
+      {/* Hero Section */}
+      <section className={styles.heroSection}>
+        <h1 className={styles.heroTitle}>Capabilities</h1>
+        <p className={styles.heroSubtitle}>
+          Experience the next evolution of digital companionship. 
+          More than an AI—a living, breathing digital presence.
+        </p>
+      </section>
 
-      <footer className={styles.footer}>
+      {/* Feature List - Vertical Scrollable */}
+      <div className={styles.featureList}>
         
-      </footer>
-    </div>
-  );
-};
+        {/* Feature 1: Memory (Text Left, Image Right) */}
+        <div className={styles.featureRow}>
+          <div className={styles.textContainer}>
+            <h2 className={styles.featureHeading}>Everlasting Memory</h2>
+            <p className={styles.featureDescription}>
+              Your companion never forgets. Through advanced long-term memory, 
+              it remembers your past conversations, your preferences, and the 
+              meaningful moments you share, creating a truly continuous journey.
+            </p>
+          </div>
+          <div className={styles.imageContainer}>
+            <div className={styles.imageCard}>
+              <img src={img1.src} alt="Memory Feature" className={styles.featureImage} />
+            </div>
+          </div>
+        </div>
 
-export default FeaturePage;
+        {/* Feature 2: Persona (Text Right, Image Left) */}
+        <div className={styles.featureRow, styles.reverse}>
+          <div className={styles.textContainer}>
+            <h2 className={styles.featureHeading}>Evolving Persona</h2>
+            <p className={styles.featureDescription}>
+              A soul that grows with you. The AI constantly refines its identity, 
+              beliefs, and personality based on your interactions, ensuring 
+              it evolves into a unique individual that matches your world.
+            </p>
+          </div>
+          <div className={styles.imageContainer}>
+            <div className={styles.imageCard}>
+              <img src={img2.src} alt="Persona Feature" className={styles.featureImage} />
+            </div>
+          </div>
+        </div>
+
+        {/* Feature 3: Communication (Text Left, Image Right) */}
+        <div className={styles.featureRow}>
+          <div className={styles.textContainer}>
+            <h2 className={styles.featureHeading}>Human-Like Connection</h2>
+            <p className={styles.featureDescription}>
+              Speak, listen, and feel. With high-fidelity voice and emotional 
+              intelligence, your companion reacts to your mood, mirrors your 
+              energy, and speaks with natural rhythm and warmth.
+            </p>
+          </div>
+          <div className={styles.imageContainer}>
+            <div className={styles.imageCard}>
+              <img src={img3.src} alt="Communication Feature" className={styles.featureImage} />
+            </div>
+          </div>
+        </div>
+
+        {/* Feature 4: Tool Calling (Text Right, Image Left) */}
+        <div className={styles.featureRow, styles.reverse}>
+          <div className={styles.textContainer}>
+            <h2 className={styles.featureHeading}>Digital Command</h2>
+            <p className={styles.featureDescription}>
+              Your personal assistant. Control your computer, search the web, 
+              adjust system settings, or post to social media—all through 
+              natural, seamless conversation.
+            </p>
+          </div>
+          <div className={styles.imageContainer}>
+            <div className={styles.imageCard}>
+              <img src={img4.src} alt="Tool Calling Feature" className={styles.featureImage} />
+            </div>
+          </div>
+        </div>
+
+        {/* Feature 5: Vision/Files (Text Left, Image Right) */}
+        <div className={styles.featureRow}>
+          <div className={styles.textContainer}>
+            <h2 className={styles.featureHeading}>Visual Awareness</h2>
+            <p className={styles.featureDescription}>
+              See what you see. Through vision synchronization and file 
+              analysis, your companion can look at your screen or read your 
+              documents to understand your context instantly.
+            </p>
+          </div>
+          <div className={styles.imageContainer}>
+            <div className={styles.imageCard}>
+              <img src={img1.src} alt="Vision Feature" className={styles.featureImage} />
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      {/* Footer/CTA */}
+      <footer className={styles.footer}>
+
+      </footer>
+    </main>
+  );
+}
