@@ -1,7 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { supabase } from '../lib/supabase'; // Must have TWO dots (..)
+import { supabase } from '../../lib/supabase';
+import { cn } from '../../lib/utils'; // Must have TWO dots (..)
 
 
 import { 
@@ -13,7 +14,6 @@ import {
   CheckCircle2,
   AlertCircle
 } from 'lucide-react';
-import { cn } from '@/lib/utils';
 
 export default function AdminDashboard() {
   const [keys, setKeys] = useState<any[]>([]);
