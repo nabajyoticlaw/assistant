@@ -1,11 +1,8 @@
 /* user.module.css */
 
-/* Global Reset for the module to prevent overflow issues */
+/* Base Layout */
 .pageWrapper {
-  :global(*) {
-    box-sizing: border-box;
-  }
-
+  box-sizing: border-box;
   min-height: 100vh;
   background: radial-gradient(circle at top center, #1e1b4b 0%, #020617 100%);
   color: #f8fafc;
@@ -13,12 +10,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center; /* Centers content vertically */
+  justify-content: center;
   padding: 2rem 1rem;
   overflow-x: hidden;
 }
 
-/* Hero Section - Centered & Clean */
+/* Hero Section */
 .heroSection {
   text-align: center;
   margin-bottom: 3rem;
@@ -28,7 +25,7 @@
 }
 
 .heroTitle {
-  font-size: clamp(2.5rem, 5vw, 4rem); /* Responsive font size */
+  font-size: clamp(2.5rem, 5vw, 4rem);
   font-weight: 800;
   letter-spacing: -0.05em;
   background: linear-gradient(to bottom right, #ffffff, #94a3b8);
@@ -43,22 +40,23 @@
   margin-bottom: 2rem;
 }
 
-/* Centering the Hero Button */
 .heroButtonContainer {
   display: flex;
   justify-content: center;
-  margin-top: 1rem;
+  width: 100%;
 }
 
 .buttonSecondary {
+  box-sizing: border-box;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
   color: #e2e8f0;
   padding: 0.75rem 2rem;
-  border-radius: 30px; /* Pill shape */
+  border-radius: 30px;
   text-decoration: none;
   font-weight: 500;
   transition: all 0.3s ease;
+  display: inline-block;
 }
 
 .buttonSecondary:hover {
@@ -66,8 +64,9 @@
   transform: translateY(-2px);
 }
 
-/* The Main Card - Strict Alignment */
+/* Main Card - Strict Alignment */
 .card {
+  box-sizing: border-box;
   background: rgba(255, 255, 255, 0.03);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
@@ -76,7 +75,7 @@
   padding: 2.5rem;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
   width: 100%;
-  max-width: 450px; /* Fixed width to prevent stretching */
+  max-width: 450px;
   margin: 0 auto;
 }
 
@@ -87,10 +86,10 @@
   width: 100%;
 }
 
-/* Form Elements - Fixed Overflow */
+/* Form Elements - Fixed Overflow via box-sizing */
 .input, .select {
-  width: 100%; /* Now safe due to box-sizing */
-  box-sizing: border-box; 
+  box-sizing: border-box;
+  width: 100%;
   padding: 1rem 1.25rem;
   background: rgba(0, 0, 0, 0.3);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -115,8 +114,9 @@
   color: #e2e8f0;
 }
 
-/* Main Action Button */
+/* Action Buttons */
 .buttonPrimary {
+  box-sizing: border-box;
   width: 100%;
   background: linear-gradient(135deg, #6366f1 0%, #a855f9 100%);
   color: white;
@@ -154,6 +154,7 @@
 }
 
 .modalContent {
+  box-sizing: border-box;
   animation: slideUp 0.4s cubic-bezier(0.25, 0.46, 0.46, 0.94);
 }
 
@@ -170,6 +171,7 @@
 }
 
 .buttonDownload {
+  box-sizing: border-box;
   background: rgba(34, 197, 94, 0.2);
   border: 1px solid #22c55e;
   color: #4ade80;
