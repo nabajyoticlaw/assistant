@@ -4,7 +4,6 @@ import styles from '../../download.module.css';
 const DownloadPage: React.FC = () => {
   return (
     <div className={styles.pageWrapper}>
-      {/* Hero Section */}
       <header className={styles.heroSection}>
         <h1 className={styles.heroTitle}>Downloads</h1>
         <p className={styles.heroSubtitle}>

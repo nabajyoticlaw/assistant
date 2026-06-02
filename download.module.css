@@ -38,7 +38,7 @@
     margin-bottom: 2rem;
   }
   
-  /* Layout Containers */
+  /* Main Layout Containers */
   .mainContainer {
     display: flex;
     flex-direction: column;
@@ -50,6 +50,7 @@
   
   .secondaryGrid {
     display: grid;
+    /* This ensures cards take up equal height in the row */
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
     width: 100%;
@@ -67,7 +68,7 @@
     padding: 2.5rem;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /* Essential for vertical alignment */
     align-items: center;
     text-align: center;
     transition: transform 0.3s ease;
@@ -77,13 +78,11 @@
     transform: translateY(-5px);
   }
   
-  /* Featured Card (The big one) */
   .featuredCard {
     width: 100%;
     max-width: 550px;
   }
   
-  /* Secondary Cards (The side-by-side ones) */
   .secondaryCard {
     width: 100%;
     max-width: 450px;
@@ -102,6 +101,8 @@
     color: #94a3b8;
     line-height: 1.5;
     margin-bottom: 2rem;
+    /* FIX: This pushes the button to the bottom regardless of text length */
+    flex: 1 0 auto; 
   }
   
   /* Buttons */
@@ -129,13 +130,14 @@
   
   .buttonSecondary {
     box-sizing: border-box;
+    width: 100%; /* Made width 100% so it matches the primary button alignment */
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
     color: #e2e8f0;
-    padding: 0.75rem 2rem;
-    border-radius: 30px;
-    text-decoration: none;
+    padding: 1rem 0; /* Adjusted padding for consistency */
+    border-radius: 12px;
     font-weight: 500;
+    text-decoration: none;
     transition: all 0.3s ease;
     display: inline-block;
   }
@@ -145,13 +147,11 @@
     transform: translateY(-2px);
   }
   
-  /* Animations */
   @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
   }
   
-  /* Responsive Adjustments */
   @media (max-width: 768px) {
     .secondaryGrid {
       grid-template-columns: 1fr;
