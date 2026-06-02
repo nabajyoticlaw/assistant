@@ -16,7 +16,7 @@ export default function LandingPage() {
   const [prices, setPrices] = useState<any[]>([]);
   const [fetchingPrices, setFetchingPrices] = useState(true);
 
-  const GOOGLE_DRIVE_LINK = "https://drive.google.com/drive/folders/1lBXZpuHhCtDeF-z9x50UrLJ7m1Zbkkwi?usp=sharing";
+  const GOOGLE_DRIVE_LINK = "https://assistant-tm0ktbatq-nabajyoticlaws-projects.vercel.app/download";
 
   useEffect(() => {
     const fetchPrices = async () => {
