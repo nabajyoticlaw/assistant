@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import styles from './feature.module.css';
+import styles from '../../feature.module.css';
 
 // Importing images as per your reference.tsx pattern
 import img1 from '../../img1.png';
