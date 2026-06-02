@@ -46,10 +46,10 @@ export default function Page() {
         <div className={`${styles.textTile} ${styles.tileSmall} ${styles.tile6}`}>
           🤖 Social media Automated
         </div>
-        <div className={`${styles.textTile} ${styles.tileSmall} ${styles.tile6}`}>
+        <div className={`${styles.textTile} ${styles.tileSmall} ${styles.tile7}`}>
           🤖 Unlimited Characters
         </div>
-        <div className={`${styles.textTile} ${styles.tileSmall} ${styles.tile6}`}>
+        <div className={`${styles.textTile} ${styles.tileSmall} ${styles.tile8}`}>
           🤖 Truly Uncensored
         </div>
       </div>
