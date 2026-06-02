@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './download.module.css';
+import styles from '../../download.module.css';
 
 const DownloadPage: React.FC = () => {
   return (
