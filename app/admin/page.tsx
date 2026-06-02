@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import { 
   ShieldAlert, Trash2, RefreshCw, CheckCircle2, XCircle, 
-  ArrowUpCircle, ArrowDownCircle, Key, User, DollarSign, Settings
+  ArrowUpCircle, ArrowDownCircle, Key, User, DollarSign, Settings, Check
 } from 'lucide-react';
 
 const supabase = createClient(
@@ -20,15 +20,16 @@ export default function AdminDashboard() {
   const [password, setPassword] = useState('');
   const [isUpdating, setIsUpdating] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'users' | 'pricing'>('users');
+  
+  // State to hold temporary price values while typing
+  const [editPrices, setEditPrices] = useState<Record<string, number>>({});
 
-  // 1. Security Gate
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     if (password === 'admin123') setIsAdmin(true);
     else alert('Invalid Admin Password');
   };
 
-  // 2. Fetching Data
   const fetchData = async () => {
     setLoading(true);
     const { data: subs } = await supabase.from('subscriptions').select('*').order('created_at', { ascending: false });
@@ -42,7 +43,7 @@ export default function AdminDashboard() {
     if (isAdmin) fetchData();
   }, [isAdmin]);
 
-  // 3. Actions
+  // --- Subscription Actions ---
   const toggleStatus = async (id: string, currentStatus: string) => {
     const newStatus = currentStatus === 'active' ? 'revoked' : 'active';
     setIsUpdating(id);
@@ -65,16 +66,26 @@ export default function AdminDashboard() {
     if (error) alert(error.message); else fetchData();
   };
 
-  // NEW: Update Pricing Action
-  const updatePrice = async (tier: string, duration: number, newPrice: number) => {
+  // --- NEW: Improved Pricing Action ---
+  const handleSavePrice = async (row: any) => {
+    const newPrice = editPrices[row.id];
+    if (newPrice === undefined) return;
+
     setIsUpdating('pricing');
-    // We use upsert to either update existing or insert new
+    // We use upsert: it looks for the tier/duration combo and updates it
     const { error } = await supabase
       .from('pricing_config')
-      .upsert({ tier, duration, price: newPrice }, { onConflict: 'tier, duration' });
+      .upsert({ 
+        tier: row.tier, 
+        duration: row.duration, 
+        price: newPrice 
+      }, { onConflict: 'tier, duration' });
 
-    if (error) alert(error.message);
-    else fetchData();
+    if (error) {
+      alert("Error: " + error.message);
+    } else {
+      fetchData();
+    }
     setIsUpdating(null);
   };
 
@@ -114,22 +125,16 @@ export default function AdminDashboard() {
           <div className="bg-gray-900 rounded-2xl border border-gray-800 overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse">
-                <thead>
-                  <tr className="text-gray-500 text-xs uppercase tracking-widest border-b border-gray-800">
-                    <th className="p-4">User Email</th>
-                    <th className="p-4">License Key</th>
-                    <th className="p-4">Tier</th>
-                    <th className="p-4">Status</th>
-                    <th className="p-4 text-right">Actions</th>
-                  </tr>
+                <thead className="text-gray-500 text-xs uppercase tracking-widest border-b border-gray-800">
+                  <tr><th className="p-4">User Email</th><th className="p-4">Key</th><th className="p-4">Tier</th><th className="p-4">Status</th><th className="p-4 text-right">Actions</th></tr>
                 </thead>
                 <tbody>
                   {subscriptions.map((sub) => (
                     <tr key={sub.id} className="border-b border-gray-800 hover:bg-gray-800/50">
                       <td className="p-4">{sub.email}</td>
-                      <td className="p-4 font-mono text-blue-400">{sub.license_key}</td>
+                      <td className="p-4 font-mono text-blue-400 text-sm">{sub.license_key}</td>
                       <td className="p-4"><span className={`text-xs font-bold px-2 py-1 rounded ${sub.tier === 'premium' ? 'bg-purple-500/20 text-purple-400' : 'bg-blue-500/20 text-blue-400'}`}>{sub.tier.toUpperCase()}</span></td>
-                      <td className="p-4">{sub.status === 'active' ? <span className="text-green-400 flex items-center gap-1"><CheckCircle2 size={14}/> Active</span> : <span className="text-red-400 flex items-center gap-1"><XCircle size={14}/> {sub.status}</span>}</td>
+                      <td className="p-4">{sub.status === 'active' ? <span className="text-green-400 flex items-center gap-1 text-sm"><CheckCircle2 size={14}/> Active</span> : <span className="text-red-400 flex items-center gap-1 text-sm"><XCircle size={14}/> {sub.status}</span>}</td>
                       <td className="p-4 text-right">
                         <div className="flex justify-end gap-2">
                           <button onClick={() => toggleTier(sub.id, sub.tier)} className="text-gray-400 hover:text-blue-400"><ArrowUpCircle size={18}/></button>
@@ -148,7 +153,7 @@ export default function AdminDashboard() {
         {/* TAB 2: PRICING MANAGEMENT */}
         {activeTab === 'pricing' && (
           <div className="bg-gray-900 rounded-2xl border border-gray-800 p-6">
-            <h3 className="text-xl font-bold mb-6 flex items-center gap-2"><Settings size={20}/> Set Product Prices</h3>
+            <h3 className="text-xl font-bold mb-6 flex items-center gap-2"><Settings size={20}/> Edit Product Prices</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {pricing.map((p) => (
                 <div key={p.id} className="bg-black p-5 rounded-xl border border-gray-800">
@@ -156,20 +161,28 @@ export default function AdminDashboard() {
                     <span className="font-bold uppercase text-blue-400">{p.tier}</span>
                     <span className="text-gray-500 text-sm">{p.duration} Month(s)</span>
                   </div>
+                  
                   <div className="flex items-center gap-2">
                     <span className="text-xl">$</span>
                     <input 
                       type="number" 
-                      defaultValue={p.price}
+                      step="0.01"
                       className="bg-transparent text-2xl font-bold outline-none w-full"
-                      onBlur={(e) => updatePrice(p.tier, p.duration, parseFloat(e.target.value))}
+                      defaultValue={p.price}
+                      onChange={(e) => setEditPrices({ ...editPrices, [p.id]: parseFloat(e.target.value) })}
                     />
                   </div>
-                  <p className="text-xs text-gray-600 mt-2">Click outside box to save</p>
+
+                  <button 
+                    onClick={() => handleSavePrice(p)}
+                    className="mt-4 w-full bg-green-600 hover:bg-green-700 p-2 rounded font-bold flex items-center justify-center gap-2 transition"
+                  >
+                    <Check size={16} /> Save Price
+                  </button>
                 </div>
               ))}
             </div>
-            {isUpdating === 'pricing' && <p className="mt-4 text-blue-500 animate-pulse">Saving changes...</p>}
+            {isUpdating === 'pricing' && <p className="mt-4 text-blue-500 animate-pulse">Updating database...</p>}
           </div>
         )}
       </div>
