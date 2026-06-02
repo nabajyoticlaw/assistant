@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import styles from '../index.module.css';
 
 // 1. Import images directly so Next.js handles the paths correctly

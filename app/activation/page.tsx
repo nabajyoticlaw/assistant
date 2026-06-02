@@ -1,4 +1,5 @@
 "use client";
+import Link from 'next/link';
 import styles from '../../user.module.css';
 import { useState, useEffect } from 'react';
 import { createClient } from '@supabase/supabase-js';
@@ -19,7 +20,7 @@ export default function LandingPage() {
   const [prices, setPrices] = useState<any[]>([]);
   const [fetchingPrices, setFetchingPrices] = useState(true);
 
-  const GOOGLE_DRIVE_LINK = "https://assistant-tm0ktbatq-nabajyoticlaws-projects.vercel.app/download";
+  const GOOGLE_DRIVE_LINK = <Link href="/download" className={styles.navLink}>Downloads</Link>;
 
   useEffect(() => {
     const fetchPrices = async () => {
