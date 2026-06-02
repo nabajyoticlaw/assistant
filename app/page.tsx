@@ -78,11 +78,11 @@ export default function LandingPage() {
     <div className={styles.pageWrapper}>
       {/* Hero Section */}
       <header className={styles.heroSection}>
-        <h1 className={styles.heroTitle}>Assistant AI</h1>
-        <p className={styles.heroSubtitle}>The premium standard for digital assets and models.</p>
+        <h1 className={styles.heroTitle}>PALKIN</h1>
+        <p className={styles.heroSubtitle}>Your True Companion.</p>
         <div className={styles.heroButtonContainer}>
           <a href={GOOGLE_DRIVE_LINK} target="_blank" rel="noreferrer" className={styles.buttonSecondary}>
-            Explore Asset Library
+            Download Application
           </a>
         </div>
       </header>
