@@ -1,9 +1,16 @@
 import React from 'react';
 import styles from '../index.module.css';
 
-const Page = () => {
+// 1. Import images directly so Next.js handles the paths correctly
+// This assumes the images are in the same folder as this file (app/)
+import img1 from '../img1.png';
+import img2 from '../img2.png';
+import img3 from '../img3.png';
+
+export default function Page() {
   return (
     <main className={styles.pageWrapper}>
+      
       {/* Navigation Menu */}
       <nav className={styles.navContainer}>
         <a href="#" className={styles.navLink}>Features</a>
@@ -13,14 +20,16 @@ const Page = () => {
 
       {/* Floating Elements Layer */}
       <div className={styles.floatingElements}>
-        {/* Large Images - Ensure these files exist in your /public folder */}
-        <img src="../img1.png" className={`${styles.floatingImg} ${styles.img1}`} alt="" />
-        <img src="../img2.png" className={`${styles.floatingImg} ${styles.img2}`} alt="" />
-        <img src="../img3.png" className={`${styles.floatingImg} ${styles.img3}`} alt="" />
+        {/* 2. Use the imported image objects. 
+            If using standard <img>, use .src. 
+            If using Next.js <Image />, just use the object. */}
+        <img src={img1.src} className={`${styles.floatingImg} ${styles.img1}`} alt="" />
+        <img src={img2.src} className={`${styles.floatingImg} ${styles.img2}`} alt="" />
+        <img src={img3.src} className={`${styles.floatingImg} ${styles.img3}`} alt="" />
 
         {/* Text Tiles */}
         <div className={`${styles.textTile} ${styles.tileLarge} ${styles.tile1}`}>
-          ✨ High Intelligence
+          ✨ Self Evolving Persona
         </div>
         <div className={`${styles.textTile} ${styles.tileLarge} ${styles.tile2}`}>
           🤖 Unlimited vector Memory
@@ -50,12 +59,11 @@ const Page = () => {
         
         <div className={styles.heroButtonContainer}>
           <a href="#" className={styles.buttonSecondary}>
-            Explore the Future
+            Watch Demo
           </a>
         </div>
       </section>
+
     </main>
   );
-};
-
-export default Page;
+}
