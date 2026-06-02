@@ -1,39 +1,50 @@
 // supabase/functions/admin-gatekeeper/index.ts
 
-// 1. Use the stable npm import
 import { createClient } from 'npm:@supabase/supabase-js@2'
 
 Deno.serve(async (req) => {
+  // 1. Create a variable to hold our data
+  let body;
+
+  // 2. SAFELY attempt to parse the JSON
   try {
-    const { password, action, payload } = await req.json();
+    // We check if there is actually a body before trying to parse it
+    const text = await req.text();
+    if (!text) {
+      throw new Error("Empty request body");
+    }
+    body = JSON.parse(text);
+  } catch (err) {
+    console.log(`❌ JSON Parse Error: ${err.message}`);
+    return new Response(
+      JSON.stringify({ error: "Invalid or empty request body" }), 
+      { status: 400, headers: { "Content-Type": "application/json" } }
+    );
+  }
 
-    // 2. Fetch the secret
+  // Now we can safely extract the data from 'body'
+  const { password, action, payload } = body;
+
+  try {
+    // 3. Get the secret password
     const SECRET_PASSWORD = Deno.env.get("ADMIN_PASSWORD");
-    
-    // DEBUG: This will show up in your Supabase Logs
-    console.log(`Attempting action: ${action}`);
-    console.log(`Password provided: ${password}`);
-    console.log(`Secret from Env: ${SECRET_PASSWORD}`);
 
-    // 3. SECURITY CHECK
-    // We check if SECRET_PASSWORD exists and if it matches
+    // 4. SECURITY CHECK
     if (!SECRET_PASSWORD || password !== SECRET_PASSWORD) {
-      console.log("❌ AUTHENTICATION FAILED");
+      console.log(`❌ Auth Failed. Provided: ${password}, Expected: ${SECRET_PASSWORD}`);
       return new Response(
         JSON.stringify({ error: "Invalid Admin Password" }), 
         { status: 401, headers: { "Content-Type": "application/json" } }
       );
     }
 
-    console.log("✅ AUTHENTICATION SUCCESSFUL");
-
-    // 4. Initialize the Admin Client
+    // 5. Initialize Admin Client
     const supabaseAdmin = createClient(
       Deno.env.get('SUPABASE_URL') ?? '',
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
     );
 
-    // 5. ROUTING
+    // 6. ROUTING
     if (action === 'verify_login') {
       return new Response(JSON.stringify({ success: true }), { status: 200 });
     } 
@@ -78,7 +89,7 @@ Deno.serve(async (req) => {
     }
 
   } catch (err) {
-    console.log(`❌ ERROR: ${err.message}`);
+    console.log(`❌ Execution Error: ${err.message}`);
     return new Response(
       JSON.stringify({ error: err.message }), 
       { status: 400, headers: { "Content-Type": "application/json" } }

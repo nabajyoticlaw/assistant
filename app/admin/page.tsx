@@ -27,17 +27,38 @@ export default function AdminDashboard() {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // We send the password to the Edge Function to check it
-    const { data, error } = await supabase.functions.invoke('admin-gatekeeper', {
-      body: { password: password, action: 'verify_login' }
-    });
+    // Ensure we don't try to login if password is empty
+    if (!password) return alert("Please enter a password");
   
-    if (error || data?.error) {
-      alert('Invalid Password');
-    } else {
-      setIsAdmin(true);
+    setLoading(true);
+  
+    try {
+      // We pass the body clearly as a single object
+      const { data, error } = await supabase.functions.invoke('admin-gatekeeper', {
+        method: 'POST', // Explicitly tell it to use POST
+        body: { 
+          password: password, 
+          action: 'verify_login' 
+        }
+      });
+  
+      if (error) {
+        // This handles errors returned by the Edge Function
+        alert(error.message || "Login failed");
+      } else if (data?.error) {
+        // This handles the JSON error message we sent back
+        alert(data.error);
+      } else {
+        setIsAdmin(true);
+      }
+    } catch (err) {
+      // This handles network/connection errors
+      alert("Network error: Could not connect to the server.");
+    } finally {
+      setLoading(false);
     }
   };
+  
   
 
   const fetchData = async () => {
