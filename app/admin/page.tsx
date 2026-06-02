@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { supabase } from '/lib/supabase';
-import { cn } from '/lib/utils'; // Must have TWO dots (..)
+import { supabase } from '../lib/supabase';
+import { cn } from '../lib/utils'; // Must have TWO dots (..)
 
 
 import { 
