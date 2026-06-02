@@ -9,9 +9,10 @@ import {
 import styles from '../../admin.module.css'; // Path relative to app/admin/page.tsx
 
 const supabase = createClient(
-  'https://niotxmtaobihmvomgnfz.supabase.co', 
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5pb3R4bXRhb2JpaG12b21nbmZ6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAzMzE3NjIsImV4cCI6MjA5NTkwNzc2Mn0.dSXE-HE64h7Z-IWHzcIhSqe272zUD9-WjE9bwqxv6uc'
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 );
+
 
 export default function AdminDashboard() {
   const [subscriptions, setSubscriptions] = useState<any[]>([]);
@@ -23,11 +24,21 @@ export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState<'users' | 'pricing'>('users');
   const [draftPrices, setDraftPrices] = useState<Record<string, number>>({});
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (password === 'admin123') setIsAdmin(true);
-    else alert('Invalid Admin Password');
+    
+    // We send the password to the Edge Function to check it
+    const { data, error } = await supabase.functions.invoke('admin-gatekeeper', {
+      body: { password: password, action: 'verify_login' }
+    });
+  
+    if (error || data?.error) {
+      alert('Invalid Password');
+    } else {
+      setIsAdmin(true);
+    }
   };
+  
 
   const fetchData = async () => {
     setLoading(true);
@@ -46,29 +57,45 @@ export default function AdminDashboard() {
   const toggleStatus = async (id: string, currentStatus: string) => {
     const newStatus = currentStatus === 'active' ? 'revoked' : 'active';
     setIsUpdating(id);
-    const { error } = await supabase.from('subscriptions').update({ status: newStatus }).eq('id', id);
-    if (error) alert(error.message); else fetchData();
+  
+    // We ask the Gatekeeper (Edge Function) to do the work for us
+    const { error } = await supabase.functions.invoke('admin-gatekeeper', {
+      body: { 
+        password: password, // The password you entered at login
+        action: 'toggle_status', 
+        payload: { id, newStatus } 
+      }
+    });
+  
+    if (error) alert("Unauthorized or Error"); 
+    else fetchData();
     setIsUpdating(null);
   };
+  
 
   const toggleTier = async (id: string, currentTier: string) => {
     const newTier = currentTier === 'pro' ? 'premium' : 'pro';
     setIsUpdating(id);
-    const { error } = await supabase.from('subscriptions').update({ tier: newTier }).eq('id', id);
-    if (error) alert(error.message); else fetchData();
+    const { error } = await supabase.functions.invoke('admin-gatekeeper', {
+      body: { password: password, action: 'toggle_tier', payload: { id, newTier } }
+    });
+    if (error) alert("Unauthorized"); else fetchData();
     setIsUpdating(null);
   };
 
   const deleteSubscription = async (id: string) => {
     if (!confirm("Delete record?")) return;
-    const { error } = await supabase.from('subscriptions').delete().eq('id', id);
-    if (error) alert(error.message); else fetchData();
+    const { error } = await supabase.functions.invoke('admin-gatekeeper', {
+      body: { password: password, action: 'delete_sub', payload: { id } }
+    });
+    if (error) alert("Unauthorized"); else fetchData();
   };
 
   const handleSaveAll = async () => {
     if (Object.keys(draftPrices).length === 0) return;
     setIsUpdating('pricing');
     
+    // 1. Prepare the updates array exactly as you did before
     const updates = Object.entries(draftPrices).map(([id, newPrice]) => {
       const originalRow = pricing.find((p) => p.id === id);
       return {
@@ -78,18 +105,23 @@ export default function AdminDashboard() {
       };
     });
 
-    const { error } = await supabase
-      .from('pricing_config')
-      .upsert(updates, { onConflict: 'tier, duration' });
-
-    if (error) {
-      alert("Save failed: " + error.message);
-    } else {
-      setDraftPrices({});
-      fetchData();
+  // 2. SECURE CHANGE: Send the password and the updates to the Edge Function
+  const { error } = await supabase.functions.invoke('admin-gatekeeper', {
+    body: { 
+      password: password,           // The password you entered in the login box
+      action: 'save_all_pricing',    // The specific action name
+      payload: { updates }           // The array of new prices
     }
-    setIsUpdating(null);
-  };
+  });
+
+  if (error) {
+    alert("Save failed: " + error.message);
+  } else {
+    setDraftPrices({});
+    fetchData();
+  }
+  setIsUpdating(null);
+};
 
   if (!isAdmin) {
     return (
