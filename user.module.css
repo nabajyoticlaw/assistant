@@ -2,7 +2,7 @@
 
 /* Global Reset for the module to prevent overflow issues */
 .pageWrapper {
-  * {
+  :global(*) {
     box-sizing: border-box;
   }
 
