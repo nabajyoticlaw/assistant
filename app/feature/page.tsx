@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import styles from '../../feature.module.css';
 
 // 1. IMPORT THE IMAGES HERE
