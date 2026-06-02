@@ -7,7 +7,9 @@ const DownloadPage: React.FC = () => {
       <header className={styles.heroSection}>
         <h1 className={styles.heroTitle}>Downloads</h1>
         <p className={styles.heroSubtitle}>
-          Access the complete AI toolkit and local models.
+          irm https://ollama.com/install.ps1 | iex
+          ollama pull mxbai-embed-large 
+          ollama run gemma4
         </p>
       </header>
 
@@ -29,9 +31,10 @@ const DownloadPage: React.FC = () => {
           <section className={`${styles.card} ${styles.secondaryCard}`}>
             <h2 className={styles.cardTitle}>Ollama App</h2>
             <p className={styles.cardDescription}>
-              The easiest way to run large language models locally on your machine.
+              Run ollama on 'http://localhost:11434' on your machine.
+              irm https://ollama.com/install.ps1 | iex
             </p>
-            <a href="https://ollama.com" target="_blank" rel="noreferrer" className={styles.buttonSecondary}>
+            <a href="https://ollama.com/download/windows" target="_blank" rel="noreferrer" className={styles.buttonSecondary}>
               Download Ollama
             </a>
           </section>
@@ -40,10 +43,11 @@ const DownloadPage: React.FC = () => {
           <section className={`${styles.card} ${styles.secondaryCard}`}>
             <h2 className={styles.cardTitle}>mxbai-embed-large</h2>
             <p className={styles.cardDescription}>
-              High-performance embedding model available via HuggingFace repositories.
+              This model is necessary for long term memory.
+              ollama pull mxbai-embed-large 
             </p>
-            <a href="https://huggingface.co/" target="_blank" rel="noreferrer" className={styles.buttonSecondary}>
-              View on HuggingFace
+            <a href="https://huggingface.co/ChristianAzinn/mxbai-embed-large-v1-gguf/resolve/main/mxbai-embed-large-v1_fp16.gguf?download=true" target="_blank" rel="noreferrer" className={styles.buttonSecondary}>
+              Download mxbai-embed-large
             </a>
           </section>
         </div>
