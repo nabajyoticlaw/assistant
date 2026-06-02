@@ -35,7 +35,7 @@ export default function Page() {
           🤖 Unlimited vector Memory
         </div>
         <div className={`${styles.textTile} ${styles.tileLarge} ${styles.tile3}`}>
-          🔒 100% Privacy First
+          🔒 100% Privacy
         </div>
         <div className={`${styles.textTile} ${styles.tileLarge} ${styles.tile4}`}>
           ✨ Highly Customizable
@@ -45,6 +45,12 @@ export default function Page() {
         </div>
         <div className={`${styles.textTile} ${styles.tileSmall} ${styles.tile6}`}>
           🤖 Social media Automated
+        </div>
+        <div className={`${styles.textTile} ${styles.tileSmall} ${styles.tile6}`}>
+          🤖 Unlimited Characters
+        </div>
+        <div className={`${styles.textTile} ${styles.tileSmall} ${styles.tile6}`}>
+          🤖 Truly Uncensored
         </div>
       </div>
 
