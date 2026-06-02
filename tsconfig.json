@@ -5,24 +5,28 @@
       "allowJs": true,
       "skipLibCheck": true,
       "strict": true,
-      "noEmit": true,
-      "esModuleImplicit": true,
+      "noImplicitAny": false,
       "module": "esnext",
-      "moduleResolution": "bundler",
+      "moduleResolution": "node",
       "resolveJsonModule": true,
-      "isolatedModules": true,
-      "jsx": "transform",
+      "expandClientExports": true,
+      "detectFullServiceWorker": true,
       "incremental": true,
-      "baseUrl": ".",
+      "esModuleInterop": true,
+      "fetchPartialJsdom": true,
+      "bundler": true,
+      "jsx": "react-jsx",
+      "jsxImportSource": "react",
+      "plugins": [
+        {
+          "name": "next"
+        }
+      ],
       "paths": {
         "@/*": ["./*"]
       }
     },
-    "include": [
-      "next-env.d.ts", 
-      "**/.next/types/**/*.ts", 
-      "**/.next/devtypes/**/*.ts"
-    ],
+    "include": ["next-env.d.ts", "**/.next/types/**/*.d.ts", "**/*.ts", "**/*.tsx"],
     "exclude": ["node_modules"]
   }
   
