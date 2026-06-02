@@ -1,5 +1,5 @@
 "use client";
-
+import Link from 'next/link';
 import styles from '../../user.module.css';
 import { useState, useEffect } from 'react';
 import { createClient } from '@supabase/supabase-js';
@@ -80,6 +80,14 @@ export default function LandingPage() {
 
   return (
     <div className={styles.pageWrapper}>
+      {/* Navigation Menu */}
+      <nav className={styles.navContainer}>
+        {/* 2. Replace <a> with <Link> and update the href to match your folder names */}
+        <Link href="/feature" className={styles.navLink}>Features</Link>
+        <Link href="/activation" className={styles.navLink}>Activation</Link>
+        <Link href="/download" className={styles.navLink}>Downloads</Link>
+      </nav>             
+      
       {/* Hero Section */}
       <header className={styles.heroSection}>
         <h1 className={styles.heroTitle}>PALKIN</h1>
