@@ -56,36 +56,45 @@
     gap: 2rem;
   }
   
-  /* --- THE FIX START --- */
+  /* --- THE CORE FIX --- */
   .card {
     box-sizing: border-box;
     background: rgba(255, 255, 255, 0.03);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 24px;
     padding: 2.5rem;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    
+    /* 1. We remove the 'border' property and use 'inset box-shadow' instead. 
+       This prevents the 'vertical line' glitch during hover. */
+    border: none; 
+    box-shadow: 
+      0 25px 50px -12px rgba(0, 0, 0, 0.5), /* Outer shadow */
+      inset 0 0 0 1px rgba(255, 255, 255, 0.1); /* The 'fake' border */
+  
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
     
-    /* 1. Fixes the "Vertical Line" glitch by forcing GPU acceleration */
-    transform: translateZ(0); 
+    /* 2. Hardware acceleration and isolation */
+    transform: translateZ(0);
     backface-visibility: hidden;
-    will-change: transform; 
+    isolation: isolate; 
+    will-change: transform;
     
-    /* 2. Smoother transition for both transform and shadow */
     transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.46, 0.94), 
                 box-shadow 0.3s ease;
   }
   
   .card:hover {
-    transform: translateY(-8px) translateZ(0); /* Keep translateZ(0) even during hover */
-    box-shadow: 0 30px 60px -10px rgba(0, 0, 0, 0.6);
+    /* 3. We update the shadow, including the inset part, so it doesn't flicker */
+    transform: translateY(-8px) translateZ(0);
+    box-shadow: 
+      0 30px 60px -10px rgba(0, 0, 0, 0.6), 
+      inset 0 0 0 1px rgba(255, 255, 255, 0.15);
   }
-  /* --- THE FIX END --- */
+  /* --- END OF FIX --- */
   
   .featuredCard {
     width: 100%;
