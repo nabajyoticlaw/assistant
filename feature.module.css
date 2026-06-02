@@ -13,6 +13,35 @@
     margin: 0;
     overflow-x: hidden;
 }
+/* --- NAVIGATION --- */
+.navContainer {
+    position: fixed;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.7rem 2rem;
+    border-radius: 12px;
+    display: flex;
+    gap: 2.5rem;
+    align-items: center;
+}
+
+.navLink {
+    color: #e2e8f0;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.navLink:hover { 
+    color: #38bdf8; 
+}
 
 /* Hero Section */
 .heroSection {
