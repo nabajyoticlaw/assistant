@@ -1,9 +1,11 @@
 "use client";
+
 import React, { useState } from 'react';
 import Link from 'next/link';
 import styles from '../../download.module.css';
 
 // Helper Component for the Command Line UI
+// This is now part of a Client Component file
 const CommandSnippet: React.FC<{ code: string }> = ({ code }) => {
   const [copied, setCopied] = useState(false);
 
@@ -71,7 +73,7 @@ const DownloadPage: React.FC = () => {
               Run ollama on 'http://localhost:11434' on your machine.
             </p>
             
-            {/* New Command Line Section */}
+            {/* Command Line UI */}
             <CommandSnippet code="irm https://ollama.com/install.ps1 | iex" />
 
             <div className={styles.buttonWrapper}>
@@ -88,7 +90,7 @@ const DownloadPage: React.FC = () => {
               This model is necessary for long term memory.
             </p>
 
-            {/* New Command Line Section */}
+            {/* Command Line UI */}
             <CommandSnippet code="ollama pull mxbai-embed-large" />
 
             <div className={styles.buttonWrapper}>
