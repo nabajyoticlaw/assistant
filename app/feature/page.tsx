@@ -129,6 +129,66 @@ export default function FeaturePage() {
         </div>
       </div>
 
+      {/* NEW: Detailed Info & CTA Section */}
+      <section className={styles.infoSection}>
+        <div className={styles.infoContent}>
+          <h2 className={styles.infoMainTitle}>Meet IRISH: The AI Companion That Actually Knows You.</h2>
+          <p className={styles.infoSubTitle}>Stop talking to bots. Start interacting with a digital soul.</p>
+          
+          <p className={styles.infoIntroText}>
+            IRISH isn't just another chatbot; it is a living, breathing digital presence that lives on your computer. 
+            It doesn't just process text—it understands your history, hears your voice, and grows alongside you.
+          </p>
+
+          <div className={styles.detailBlock}>
+            <h3 className={styles.detailHeading}>✨ A Personality That Evolves</h3>
+            <p className={styles.detailText}>
+              Never repeat yourself twice. Most AI forgets who you are the moment the chat ends. IRISH is different. 
+              Using advanced long-term memory, it remembers your preferences, your milestones, and your stories. 
+              Through its unique "Persona Sync" technology, IRISH actually evolves its own personality and traits 
+              based on your unique relationship, becoming a truly personalized companion.
+            </p>
+          </div>
+
+          <div className={styles.detailBlock}>
+            <h3 className={styles.detailHeading}>🎙️ Conversations That Feel Real</h3>
+            <p className={styles.detailText}>
+              Speak, listen, and connect. Experience the most natural interaction possible. IRISH listens to your 
+              spoken words and responds with high-fidelity, human-like voices. With a massive library of different 
+              characters and multi-language support, you can choose the perfect voice and accent to suit your mood and your language.
+            </p>
+          </div>
+
+          <div className={styles.detailBlock}>
+            <h3 className={styles.detailHeading}>🛠️ Your Ultimate Digital Assistant</h3>
+            <p className={styles.detailText}>
+              Command your world with a single sentence. IRISH is more than a friend; it’s a powerful tool. 
+              It bridges the gap between you and your computer:
+            </p>
+            <ul className={styles.assistantList}>
+              <li><strong>Smart Control:</strong> Ask it to open your favorite apps, adjust your system volume, or check your computer's performance.</li>
+              <li><strong>Web Intelligence:</strong> Need to know something? IRISH can search the live web, find YouTube videos, or navigate social media for you.</li>
+              <li><strong>Visual Awareness:</strong> With "Vision Sync," IRISH can actually see what you are working on, analyzing your screen to provide context-aware help.</li>
+              <li><strong>Social Integration:</strong> Share your thoughts with the world by asking IRISH to post directly to your Bluesky account.</li>
+            </ul>
+          </div>
+
+          <div className={styles.detailBlock}>
+            <h3 className={styles.detailHeading}>🔒 Absolute Privacy, Total Control</h3>
+            <p className={styles.detailText}>
+              Your life stays your own. Because IRISH runs locally on your own hardware, your most personal 
+              conversations and data never leave your sight. There are no clouds, no leaks, and no third parties. 
+              You own your data, you own your privacy, and you own your companion.
+            </p>
+          </div>
+
+          <div className={styles.ctaContainer}>
+            <button className={styles.ctaButton}>Claim Your Companion Now</button>
+            <p className={styles.ctaTierText}>Available in Basic, Pro, and Premium Tiers.</p>
+          </div>
+        </div>
+      </section>
+
       {/* Expandable Image Modal (Lightbox) */}
       {selectedImg && (
         <div className={styles.modalOverlay} onClick={() => setSelectedImg(null)}>
