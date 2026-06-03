@@ -3,10 +3,10 @@ import Link from 'next/link';
 import styles from '../../feature.module.css';
 
 // Importing images
-import img1 from '../../img4.png';
+import img1 from '../../img7.png';
 import img2 from '../../img5.png';
-import img3 from '../../img6.png';
-import img4 from '../../img7.png'; // Fixed name consistency
+import img3 from '../../img4.png';
+import img4 from '../../img6.png'; // Fixed name consistency
 
 export default function FeaturePage() {
   return (
@@ -42,7 +42,7 @@ export default function FeaturePage() {
           </div>
           <div className={styles.imageContainer}>
             <div className={styles.imageCard}>
-              <img src={img7.src} alt="Memory Feature" className={styles.featureImage} />
+              <img src={img1.src} alt="Memory Feature" className={styles.featureImage} />
             </div>
           </div>
         </div>
@@ -58,7 +58,7 @@ export default function FeaturePage() {
           </div>
           <div className={styles.imageContainer}>
             <div className={styles.imageCard}>
-              <img src={img5.src} alt="Persona Feature" className={styles.featureImage} />
+              <img src={img2.src} alt="Persona Feature" className={styles.featureImage} />
             </div>
           </div>
         </div>
@@ -74,7 +74,7 @@ export default function FeaturePage() {
           </div>
           <div className={styles.imageContainer}>
             <div className={styles.imageCard}>
-              <img src={img4.src} alt="Communication Feature" className={styles.featureImage} />
+              <img src={img3.src} alt="Communication Feature" className={styles.featureImage} />
             </div>
           </div>
         </div>
@@ -90,7 +90,7 @@ export default function FeaturePage() {
           </div>
           <div className={styles.imageContainer}>
             <div className={styles.imageCard}>
-              <img src={img6.src} alt="Tool Calling Feature" className={styles.featureImage} />
+              <img src={img4.src} alt="Tool Calling Feature" className={styles.featureImage} />
             </div>
           </div>
         </div>
