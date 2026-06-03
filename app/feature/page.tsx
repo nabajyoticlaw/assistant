@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image'; // Optimized Image component
+import Script from 'next/script'; // For Schema Markup
 import styles from '../../feature.module.css';
 
 // Importing images
@@ -24,29 +26,50 @@ export default function FeaturePage() {
 
   return (
     <main className={styles.pageWrapper}>
+      {/* 1. JSON-LD Schema Markup (Tells Google this is a Software Product) */}
+      <Script
+        id="schema-markup"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "IRISH AI",
+            "operatingSystem": "Windows, macOS, Linux",
+            "applicationCategory": "Artificial Intelligence",
+            "description": "IRISH is a private, evolving digital AI companion that provides long-term memory, human-like voice, and digital command capabilities.",
+            "offers": {
+              "@type": "Offer",
+              "price": "0.00",
+              "priceCurrency": "USD"
+            }
+          }),
+        }}
+      />
+
       {/* Navigation Menu */}
-      <nav className={styles.navContainer}>
+      <nav className={styles.navContainer} aria-label="Main Navigation">
         <Link href="/" className={styles.navLink}>Home</Link>
         <Link href="/feature" className={styles.navLink}>Features</Link>
         <Link href="/activation" className={styles.navLink}>Activation</Link>
         <Link href="/download" className={styles.navLink}>Downloads</Link>
       </nav>
 
-      {/* Hero Section */}
+      {/* Hero Section - Optimized H1 */}
       <header className={styles.heroSection}>
-        <h1 className={styles.heroTitle}>Capabilities</h1>
+        <h1 className={styles.heroTitle}>IRISH AI Capabilities & Features</h1>
         <p className={styles.heroSubtitle}>
-          Experience the next evolution of digital companionship. More than an AI a living, breathing digital presence.
+          Experience the next evolution of digital companionship. More than an AI—a living, breathing digital presence.
         </p>
       </header>
 
       {/* Feature List */}
       <div className={styles.featureList}>
         
-        {/* Feature 1 */}
+        {/* Feature 1 - Optimized Alt Text & Image */}
         <div className={styles.featureRow}>
           <div className={styles.textContainer}>
-            <h2 className={styles.featureHeading}>Everlasting Memory</h2>
+            <h2 className={styles.featureHeading}>Advanced Long-Term AI Memory</h2>
             <p className={styles.featureDescription}>
               Your companion never forgets. Through advanced long-term memory, 
               it remembers your past conversations, your preferences, and the 
@@ -55,11 +78,12 @@ export default function FeaturePage() {
           </div>
           <div className={styles.imageContainer}>
             <div className={styles.imageCard}>
-              <img 
-                src={img1.src} 
-                alt="Memory Feature" 
+              <Image 
+                src={img1} 
+                alt="IRISH AI Everlasting Memory Feature" 
                 className={styles.featureImage} 
                 onClick={() => setSelectedImg(img1.src)}
+                placeholder="blur"
               />
             </div>
           </div>
@@ -68,19 +92,20 @@ export default function FeaturePage() {
         {/* Feature 2 */}
         <div className={`${styles.featureRow} ${styles.reverse}`}>
           <div className={styles.textContainer}>
-            <h2 className={styles.featureHeading}>Evolving Persona</h2>
+            <h2 className={styles.featureHeading}>Evolving AI Persona</h2>
             <p className={styles.featureDescription}>
               A soul that grows with you. The AI constantly refines its identity, 
-              beliefs, and personality based on your interactions.
+              beliefs, and personality based on your unique interactions.
             </p>
           </div>
           <div className={styles.imageContainer}>
             <div className={styles.imageCard}>
-              <img 
-                src={img2.src} 
-                alt="Persona Feature" 
+              <Image 
+                src={img2} 
+                alt="Evolving AI Persona and Personality Technology" 
                 className={styles.featureImage} 
                 onClick={() => setSelectedImg(img2.src)}
+                placeholder="blur"
               />
             </div>
           </div>
@@ -89,7 +114,7 @@ export default function FeaturePage() {
         {/* Feature 3 */}
         <div className={styles.featureRow}>
           <div className={styles.textContainer}>
-            <h2 className={styles.featureHeading}>Human-Like Connection</h2>
+            <h2 className={styles.featureHeading}>Human-Like AI Connection</h2>
             <p className={styles.featureDescription}>
               Speak, listen, and feel. With high-fidelity voice and emotional 
               intelligence, your companion reacts to your mood.
@@ -97,11 +122,12 @@ export default function FeaturePage() {
           </div>
           <div className={styles.imageContainer}>
             <div className={styles.imageCard}>
-              <img 
-                src={img3.src} 
-                alt="Communication Feature" 
+              <Image 
+                src={img3} 
+                alt="Human-like AI Voice and Emotional Intelligence" 
                 className={styles.featureImage} 
                 onClick={() => setSelectedImg(img3.src)}
+                placeholder="blur"
               />
             </div>
           </div>
@@ -110,7 +136,7 @@ export default function FeaturePage() {
         {/* Feature 4 */}
         <div className={`${styles.featureRow} ${styles.reverse}`}>
           <div className={styles.textContainer}>
-            <h2 className={styles.featureHeading}>Digital Command</h2>
+            <h2 className={styles.featureHeading}>Digital AI Command & Control</h2>
             <p className={styles.featureDescription}>
               Your personal assistant. Control your computer, search the web, 
               or adjust system settings through natural conversation.
@@ -118,21 +144,22 @@ export default function FeaturePage() {
           </div>
           <div className={styles.imageContainer}>
             <div className={styles.imageCard}>
-              <img 
-                src={img4.src} 
-                alt="Tool Calling Feature" 
+              <Image 
+                src={img4} 
+                alt="Digital AI Assistant Command and Control Feature" 
                 className={styles.featureImage} 
                 onClick={() => setSelectedImg(img4.src)}
+                placeholder="blur"
               />
             </div>
           </div>
         </div>
       </div>
 
-      {/* NEW: Detailed Info & CTA Section */}
+      {/* Detailed Info & CTA Section */}
       <section className={styles.infoSection}>
         <div className={styles.infoContent}>
-          <h2 className={styles.infoMainTitle}>Meet IRISH: The AI Companion That Actually Knows You.</h2>
+          <h2 className={styles.infoMainTitle}>Meet IRISH: The Private AI Companion That Actually Knows You.</h2>
           <p className={styles.infoSubTitle}>Stop talking to bots. Start interacting with a digital soul.</p>
           
           <p className={styles.infoIntroText}>
@@ -192,10 +219,12 @@ export default function FeaturePage() {
       {/* Expandable Image Modal (Lightbox) */}
       {selectedImg && (
         <div className={styles.modalOverlay} onClick={() => setSelectedImg(null)}>
-          <img 
+          <Image 
             src={selectedImg} 
             alt="Expanded View" 
             className={styles.expandedImage} 
+            width={1200} // Provide dimensions for Next/Image
+            height={800}
           />
         </div>
       )}
