@@ -1,4 +1,6 @@
-import React from 'react';
+"use client";
+
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import styles from '../../feature.module.css';
 
@@ -6,9 +8,20 @@ import styles from '../../feature.module.css';
 import img1 from '../../img7.png';
 import img2 from '../../img5.png';
 import img3 from '../../img4.png';
-import img4 from '../../img6.png'; // Fixed name consistency
+import img4 from '../../img6.png';
 
 export default function FeaturePage() {
+  const [selectedImg, setSelectedImg] = useState<string | null>(null);
+
+  // Prevent background scrolling when image is expanded
+  useEffect(() => {
+    if (selectedImg) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [selectedImg]);
+
   return (
     <main className={styles.pageWrapper}>
       {/* Navigation Menu */}
@@ -23,14 +36,14 @@ export default function FeaturePage() {
       <header className={styles.heroSection}>
         <h1 className={styles.heroTitle}>Capabilities</h1>
         <p className={styles.heroSubtitle}>
-        Experience the next evolution of digital companionship. More than an AI a living, breathing digital presence.
+          Experience the next evolution of digital companionship. More than an AI a living, breathing digital presence.
         </p>
       </header>
 
       {/* Feature List */}
       <div className={styles.featureList}>
         
-        {/* Feature 1: Text Left, Image Right */}
+        {/* Feature 1 */}
         <div className={styles.featureRow}>
           <div className={styles.textContainer}>
             <h2 className={styles.featureHeading}>Everlasting Memory</h2>
@@ -42,12 +55,17 @@ export default function FeaturePage() {
           </div>
           <div className={styles.imageContainer}>
             <div className={styles.imageCard}>
-              <img src={img1.src} alt="Memory Feature" className={styles.featureImage} />
+              <img 
+                src={img1.src} 
+                alt="Memory Feature" 
+                className={styles.featureImage} 
+                onClick={() => setSelectedImg(img1.src)}
+              />
             </div>
           </div>
         </div>
 
-        {/* Feature 2: Image Left, Text Right (Using reverse class) */}
+        {/* Feature 2 */}
         <div className={`${styles.featureRow} ${styles.reverse}`}>
           <div className={styles.textContainer}>
             <h2 className={styles.featureHeading}>Evolving Persona</h2>
@@ -58,12 +76,17 @@ export default function FeaturePage() {
           </div>
           <div className={styles.imageContainer}>
             <div className={styles.imageCard}>
-              <img src={img2.src} alt="Persona Feature" className={styles.featureImage} />
+              <img 
+                src={img2.src} 
+                alt="Persona Feature" 
+                className={styles.featureImage} 
+                onClick={() => setSelectedImg(img2.src)}
+              />
             </div>
           </div>
         </div>
 
-        {/* Feature 3: Text Left, Image Right */}
+        {/* Feature 3 */}
         <div className={styles.featureRow}>
           <div className={styles.textContainer}>
             <h2 className={styles.featureHeading}>Human-Like Connection</h2>
@@ -74,12 +97,17 @@ export default function FeaturePage() {
           </div>
           <div className={styles.imageContainer}>
             <div className={styles.imageCard}>
-              <img src={img3.src} alt="Communication Feature" className={styles.featureImage} />
+              <img 
+                src={img3.src} 
+                alt="Communication Feature" 
+                className={styles.featureImage} 
+                onClick={() => setSelectedImg(img3.src)}
+              />
             </div>
           </div>
         </div>
 
-        {/* Feature 4: Image Left, Text Right */}
+        {/* Feature 4 */}
         <div className={`${styles.featureRow} ${styles.reverse}`}>
           <div className={styles.textContainer}>
             <h2 className={styles.featureHeading}>Digital Command</h2>
@@ -90,12 +118,27 @@ export default function FeaturePage() {
           </div>
           <div className={styles.imageContainer}>
             <div className={styles.imageCard}>
-              <img src={img4.src} alt="Tool Calling Feature" className={styles.featureImage} />
+              <img 
+                src={img4.src} 
+                alt="Tool Calling Feature" 
+                className={styles.featureImage} 
+                onClick={() => setSelectedImg(img4.src)}
+              />
             </div>
           </div>
         </div>
-
       </div>
+
+      {/* Expandable Image Modal (Lightbox) */}
+      {selectedImg && (
+        <div className={styles.modalOverlay} onClick={() => setSelectedImg(null)}>
+          <img 
+            src={selectedImg} 
+            alt="Expanded View" 
+            className={styles.expandedImage} 
+          />
+        </div>
+      )}
 
       <footer className={styles.footer} />
     </main>
