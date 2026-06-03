@@ -91,7 +91,7 @@ export default function LandingPage() {
       
       {/* Hero Section */}
       <header className={styles.heroSection}>
-        <h1 className={styles.heroTitle}>PALKIN</h1>
+        <h1 className={styles.heroTitle}>IRISH</h1>
         <p className={styles.heroSubtitle}>Your Truely Private Companion.</p>
         <p className={styles.heroSubtitle}>Pay after use. One month free on Pro & Premium Tier.</p>
         <div className={styles.heroButtonContainer}>

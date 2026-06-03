@@ -2,8 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import styles from '../index.module.css';
 
-// 1. Import images directly so Next.js handles the paths correctly
-// This assumes the images are in the same folder as this file (app/)
+// 1. Import images directly
 import img1 from '../img1.png';
 import img2 from '../img2.png';
 import img3 from '../img3.png';
@@ -12,58 +11,55 @@ export default function Page() {
   return (
     <main className={styles.pageWrapper}>
       
-      {/* Navigation Menu */}
+      {/* Navigation Menu - Stays as is */}
       <nav className={styles.navContainer}>
-        {/* 2. Replace <a> with <Link> and update the href to match your folder names */}
         <Link href="/feature" className={styles.navLink}>Features</Link>
         <Link href="/activation" className={styles.navLink}>Activation</Link>
         <Link href="/download" className={styles.navLink}>Downloads</Link>
       </nav>
 
-      {/* Floating Elements Layer */}
+      {/* Floating Elements Layer - Now acting as Background Texture */}
       <div className={styles.floatingElements}>
-        {/* 2. Use the imported image objects. 
-            If using standard <img>, use .src. 
-            If using Next.js <Image />, just use the object. */}
         <img src={img1.src} className={`${styles.floatingImg} ${styles.img1}`} alt="" />
         <img src={img2.src} className={`${styles.floatingImg} ${styles.img2}`} alt="" />
         <img src={img3.src} className={`${styles.floatingImg} ${styles.img3}`} alt="" />
 
-        {/* Text Tiles */}
+        {/* Text Tiles - Now purely artistic, no boxes/borders */}
         <div className={`${styles.textTile} ${styles.tileLarge} ${styles.tile1}`}>
-          ✨ Self Evolving Persona
+          🧬 Self Evolving Persona
         </div>
         <div className={`${styles.textTile} ${styles.tileLarge} ${styles.tile2}`}>
-          🤖 Unlimited vector Memory
+          🧠 Unlimited Vector Memory
         </div>
         <div className={`${styles.textTile} ${styles.tileLarge} ${styles.tile3}`}>
           🔒 100% Privacy
         </div>
         <div className={`${styles.textTile} ${styles.tileLarge} ${styles.tile4}`}>
-          ✨ Highly Customizable
+          🎨 Highly Customizable
         </div>
         <div className={`${styles.textTile} ${styles.tileSmall} ${styles.tile5}`}>
-          🤖 System Controls
+          ⚙️ System Controls
         </div>
         <div className={`${styles.textTile} ${styles.tileSmall} ${styles.tile6}`}>
-          🤖 Social media Automated
+          📱 Social Media Automated
         </div>
         <div className={`${styles.textTile} ${styles.tileSmall} ${styles.tile7}`}>
-          🤖 Unlimited Characters
+          👥 Unlimited Characters
         </div>
         <div className={`${styles.textTile} ${styles.tileSmall} ${styles.tile8}`}>
-          🤖 Truly Uncensored
+          🔓 Truly Uncensored
         </div>
       </div>
 
-      {/* Main Hero Content */}
+      {/* Main Hero Content - High Z-Index to stay on top */}
       <section className={styles.heroSection}>
         <h1 className={styles.heroTitle}>
-          palkin.ai
+          IRISH
         </h1>
-        <p1 className={styles.heroTitle}>
+        {/* We use a specific class here to decrease thickness by 50% */}
+        <p className={styles.heroSubTitle}>
           Intelligence<br />Evolved.
-        </p1>
+        </p>
         <p className={styles.heroSubtitle}>
           The ultimate AI assistant designed to augment your human potential through seamless automation.
         </p>

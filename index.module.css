@@ -15,30 +15,47 @@
     position: relative;
 }
 
+/* --- HERO SECTION (The Foreground) --- */
 .heroSection {
     text-align: center;
     width: 100%;
     max-width: 800px;
     animation: fadeIn 1s ease-out;
-    z-index: 1;
-    pointer-events: none;
+    z-index: 10; /* Higher than floating elements */
+    pointer-events: none; /* Allows clicking through to background if needed, but we enable it for buttons below */
+}
+
+/* Ensure the button container can actually be clicked */
+.heroButtonContainer {
+    pointer-events: auto;
 }
 
 .heroTitle {
-    font-size: clamp(3rem, 8vw, 5rem);
+    font-size: clamp(3.5rem, 10vw, 6rem);
     font-weight: 800;
     letter-spacing: -0.05em;
     background: linear-gradient(to bottom right, #ffffff, #94a3b8);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+/* The "Intelligence Evolved" text - Reduced thickness by 50% */
+.heroSubTitle {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 300; /* Significantly lighter than the 800 above */
+    line-height: 1.1;
+    color: #e2e8f0;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
 }
 
 .heroSubtitle {
     color: #94a3b8;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     margin-bottom: 2.5rem;
-    max-width: 500px;
+    max-width: 450px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -46,8 +63,8 @@
 .buttonSecondary {
     box-sizing: border-box;
     background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: #e2e8f0;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #ffffff;
     padding: 1rem 2.5rem;
     border-radius: 30px;
     text-decoration: none;
@@ -58,8 +75,9 @@
 }
 
 .buttonSecondary:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.15);
     transform: translateY(-2px);
+    border-color: #38bdf8;
 }
 
 /* --- NAVIGATION --- */
@@ -68,7 +86,7 @@
     top: 30px;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 100;
+    z-index: 100; /* Always on top */
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
@@ -92,7 +110,7 @@
     color: #38bdf8; 
 }
 
-/* --- LARGE FLOATING ELEMENTS --- */
+/* --- FLOATING ELEMENTS (The Background Layer) --- */
 .floatingElements {
     position: absolute;
     top: 0;
@@ -100,35 +118,36 @@
     width: 100%;
     height: 100%;
     pointer-events: none;
-    z-index: 1;
+    z-index: 1; /* Behind Hero Section */
 }
 
 .floatingImg {
     position: absolute;
     width: 750px; 
     height: auto;
-    opacity: 0.7;
-    filter: blur(1.5px);
+    opacity: 0.3; /* Slightly higher for background depth */
+    filter: blur(2px);
     animation: floatImg 20s ease-in-out infinite;
 }
 
+/* The Text Tiles - Now "Artistic Typography" */
 .textTile {
     position: absolute;
-    background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 1rem 1.5rem;
-    border-radius: 16px;
-    color: #f8fafc;
-    font-size: 0.9rem;
-    font-weight: 500;
-    animation: floatText 8s ease-in-out infinite;
-    z-index: 5;
+    background: transparent; /* Removed background */
+    border: none;            /* Removed border */
+    backdrop-filter: none;   /* Removed blur */
+    color: rgba(255, 255, 255, 0.15); /* Very faint text */
+    font-weight: 700;
+    font-size: 1.5rem;
+    animation: floatText 12s ease-in-out infinite;
+    z-index: 1;
+    white-space: nowrap;
+    pointer-events: none;
 }
 
-.tileLarge { font-size: 1.2rem; padding: 1.5rem 2rem; }
-.tileSmall { font-size: 1.0rem; padding: 0.5rem 1rem; }
+/* Larger text for more "impact" in the background */
+.tileLarge { font-size: 3rem; }
+.tileSmall { font-size: 1.2rem; }
 
 /* Positioning */
 .img1 { top: 10%; left: 5%; animation-delay: 0s; }
@@ -136,13 +155,13 @@
 .img3 { top: 30%; right: 5%; animation-delay: -5s; }
 
 .tile1 { top: 20%; right: 15%; animation-delay: 1s; }
-.tile2 { top: 70%; left: 10%; animation-delay: 3s; }
+.tile2 { top: 60%; left: 10%; animation-delay: 3s; }
 .tile3 { bottom: 25%; right: 10%; animation-delay: 5s; }
 .tile4 { bottom: 75%; left: 10%; animation-delay: 6s; }
 .tile5 { bottom: 55%; right: 15%; animation-delay: 4s; }
 .tile6 { bottom: 65%; right: 80%; animation-delay: 6s; }
-.tile7 { bottom: 10%; right: 5%; animation-delay: 5s; }
-.tile8 { bottom: 10%; right: 80%; animation-delay: 4s; }
+.tile7 { bottom: 15%; right: 5%; animation-delay: 5s; }
+.tile8 { bottom: 15%; right: 80%; animation-delay: 4s; }
 
 /* Animations */
 @keyframes fadeIn {
@@ -157,10 +176,11 @@
 
 @keyframes floatText {
     0%, 100% { transform: translate(0, 0); }
-    50% { transform: translate(20px, -20px); }
+    50% { transform: translate(30px, -30px); }
 }
 
 @media (max-width: 768px) {
-    .floatingImg { width: 350px; opacity: 0.2; }
+    .floatingImg { width: 350px; opacity: 0.1; }
+    .textTile { font-size: 1.5rem; }
     .navContainer { width: 90%; gap: 1rem; justify-content: center; }
 }
