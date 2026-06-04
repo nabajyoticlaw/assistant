@@ -5,7 +5,6 @@ import Link from 'next/link';
 import styles from '../../download.module.css';
 
 // Helper Component for the Command Line UI
-// This is now part of a Client Component file
 const CommandSnippet: React.FC<{ code: string }> = ({ code }) => {
   const [copied, setCopied] = useState(false);
 
@@ -36,7 +35,7 @@ const CommandSnippet: React.FC<{ code: string }> = ({ code }) => {
 const DownloadPage: React.FC = () => {
   return (
     <div className={styles.pageWrapper}>
-      {/* Navigation Menu - Kept exactly as requested */}
+      {/* Navigation Menu */}
       <nav className={styles.navContainer}>
         <Link href="/" className={styles.navLink}>Home</Link>
         <Link href="/feature" className={styles.navLink}>Features</Link>
@@ -44,7 +43,7 @@ const DownloadPage: React.FC = () => {
         <Link href="/download" className={styles.navLink}>Downloads</Link>
       </nav>        
       
-      {/* Hero Section - Kept exactly as requested */}
+      {/* Hero Section */}
       <header className={styles.heroSection}>
         <h1 className={styles.heroTitle}>Downloads</h1>
         <p className={styles.heroSubtitle}>
@@ -73,7 +72,6 @@ const DownloadPage: React.FC = () => {
               Run ollama on 'http://localhost:11434' on your machine.
             </p>
             
-            {/* Command Line UI */}
             <CommandSnippet code="irm https://ollama.com/install.ps1 | iex" />
 
             <div className={styles.buttonWrapper}>
@@ -90,7 +88,6 @@ const DownloadPage: React.FC = () => {
               This model is necessary for long term memory.
             </p>
 
-            {/* Command Line UI */}
             <CommandSnippet code="ollama pull mxbai-embed-large" />
 
             <div className={styles.buttonWrapper}>
@@ -101,6 +98,35 @@ const DownloadPage: React.FC = () => {
           </section>
         </div>
       </main>
+
+      {/* --- NEW: Setup Instructions Section --- */}
+      <section className={styles.instructionsSection}>
+        <div className={styles.instructionsCard}>
+          <h2 className={styles.cardTitle}>🛠️ Setup Instructions</h2>
+          <div className={styles.instructionsList}>
+            <div className={styles.instructionItem}>
+              <strong>Ollama (AI Engine) 🧠</strong>
+              <p>Purpose: Runs the local AI brain. Action: Download and install from <a href="https://ollama.com" className={styles.link}>ollama.com</a>.</p>
+            </div>
+            <div className={styles.instructionItem}>
+              <strong>espeak-ng (optional) 🗣️</strong>
+              <p>Purpose: Enables high-quality, multi-language voice capabilities. Action: Install espeak-ng system-wide.</p>
+            </div>
+            <div className={styles.instructionItem}>
+              <strong>AI Models 📚</strong>
+              <p>Purpose: Provides the actual intelligence for the companion. Action: Open your terminal and run: <code>ollama pull [model_name]</code> (e.g., <code>ollama pull llama3</code>).</p>
+            </div>
+            <div className={styles.instructionItem}>
+              <strong>Tavily API Key (Web Access) 🌐</strong>
+              <p>Purpose: Enables the AI to search the internet for real-time info. Action: Set your <code>TAVILY_API_KEY</code> as a system environment variable.</p>
+            </div>
+            <div className={styles.instructionItem}>
+              <strong>Audio Hardware (optional) 🎤</strong>
+              <p>Purpose: Required for voice-to-voice interaction. Action: Connect a working Microphone and Speakers/Headphones.</p>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };
