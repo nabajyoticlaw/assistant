@@ -210,7 +210,11 @@ export default function FeaturePage() {
           </div>
 
           <div className={styles.ctaContainer}>
-            <button href="./activation" target="_blank" rel="noreferrer" className={styles.ctaButton}>Claim Your Companion Now</button>
+            <button className={styles.ctaButton}>
+              <a href="./download" target="_blank" rel="noreferrer" className={styles.ctaButton}>
+                Claim Your Companion Now
+              </a>          
+            </button>
             <p className={styles.ctaTierText}>Available in Basic, Pro, and Premium Tiers.</p>
           </div>
         </div>
