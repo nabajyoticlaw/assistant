@@ -121,6 +121,10 @@ const DownloadPage: React.FC = () => {
               <p>Purpose: Enables the AI to search the internet for real-time info. Action: Set your <code>TAVILY_API_KEY</code> as a system environment variable.</p>
             </div>
             <div className={styles.instructionItem}>
+              <strong>Gemini API Key (Online LLM) 🤖</strong>
+              <p>Purpose: Enables the AI to work on the internet if local LLM unavailable . Action: Set your <code>GEMINI_API_KEY</code> as a system environment variable.</p>
+            </div>
+            <div className={styles.instructionItem}>
               <strong>Audio Hardware (optional) 🎤</strong>
               <p>Purpose: Required for voice-to-voice interaction. Action: Connect a working Microphone and Speakers/Headphones.</p>
             </div>
