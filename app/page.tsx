@@ -65,8 +65,8 @@ export default function Page() {
         </p>
         
         <div className={styles.heroButtonContainer}>
-          <a href="https://github.com/nabajyoticlaw/distrbution/releases/download/v1.0.0/irish_AI.zip" className={styles.buttonSecondary}>
-            Try It
+          <a href="https://youtu.be/KfPBENXGsFw" className={styles.buttonSecondary}>
+            Watch Demo
           </a>
         </div>
       </section>
