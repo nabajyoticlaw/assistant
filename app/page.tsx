@@ -54,7 +54,7 @@ export default function Page() {
       {/* Main Hero Content - High Z-Index to stay on top */}
       <section className={styles.heroSection}>
         <h1 className={styles.heroTitle}>
-          IRISH
+          irish AI
         </h1>
         {/* We use a specific class here to decrease thickness by 50% */}
         <p className={styles.heroSubTitle}>
@@ -65,8 +65,8 @@ export default function Page() {
         </p>
         
         <div className={styles.heroButtonContainer}>
-          <a href="#" className={styles.buttonSecondary}>
-            Watch Demo
+          <a href="https://github.com/nabajyoticlaw/distrbution/releases/download/v1.0.0/irish_AI.zip" className={styles.buttonSecondary}>
+            Try It
           </a>
         </div>
       </section>
