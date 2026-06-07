@@ -54,12 +54,12 @@ const DownloadPage: React.FC = () => {
       <main className={styles.mainContainer}>
         {/* Apex Card */}
         <section className={`${styles.card} ${styles.featuredCard}`}>
-          <h2 className={styles.cardTitle}>irish_AI.zip</h2>
+          <h2 className={styles.cardTitle}>Complete Package</h2>
           <p className={styles.cardDescription}>
             Download the complete bundled environment containing all necessary configurations and assets.
           </p>
           <a href="https://github.com/nabajyoticlaw/distrbution/releases/download/v1.0.0/irish_AI.zip" className={styles.buttonPrimary} download="irish_AI.zip(v1.0.0)">
-            Download assistant.zip
+            Download irish_AI.zip
           </a>
         </section>
 
