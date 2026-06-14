@@ -58,7 +58,7 @@ const DownloadPage: React.FC = () => {
           <p className={styles.cardDescription}>
             Download the complete bundled environment containing all necessary configurations and assets.
           </p>
-          <a href="https://github.com/nabajyoticlaw/distrbution/releases/download/v1.0.0/irish_AI.zip" className={styles.buttonPrimary} download="irish_AI.zip(v1.0.0)">
+          <a href="https://github.com/nabajyoticlaw/distrbution/releases/download/v1.0.0/irishAI.zip" className={styles.buttonPrimary} download="irish_AI.zip(v1.0.0)">
             Download irish_AI.zip
           </a>
         </section>
